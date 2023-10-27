@@ -23,4 +23,4 @@ function Test-Project{
             "Error testing on Project Title [$ProjectTitle] for owner [$Owner]" | Write-Verbose
         }
     }
-}
+} Export-ModuleMember -Function Test-Project

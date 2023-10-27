@@ -24,6 +24,7 @@ function Get-Environment{
         RepoBack = $repoBack
         RepoFrontWithOwner = '{0}/{1}' -f $Owner, $repoFront
         RepoBackWithOwner = '{0}/{1}' -f $Owner, $repoBack
+        IssuesAmount = 5
     }
     return $env
-}
+} Export-ModuleMember -Function Get-Environment

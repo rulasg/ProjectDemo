@@ -19,4 +19,4 @@ function Test-Repo{
             "Error testing repro [$RepoWithOwner]" | Write-Verbose
         }
     }
-}
+} Export-ModuleMember -Function Test-Repo
