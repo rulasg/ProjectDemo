@@ -1,5 +1,3 @@
-TestingHelper test.ps1
-
 <#
 .SYNOPSIS
     Run tests
