@@ -13,7 +13,7 @@ function Test-ProjectDemo{
 
     if($r1){"Repo [ {0} ] exists" -f $DemoEnv.RepoBackWithOwner | Write-Verbose}
     if($r2){"Repo [ {0} ] exists" -f $DemoEnv.RepoFrontWithOwner | Write-Verbose}
-    if($p1){"Project [$Name] exists" | Write-Verbose}
+    if($p1){"Project [{0}] exists" -f $DemoEnv.Name | Write-Verbose}
 
     $ret = $r1 -or $r2 -or $p1
 
