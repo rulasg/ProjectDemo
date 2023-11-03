@@ -12,12 +12,28 @@ function New-Repo{
         "[New-Repo] gh repo create $RepoWithOwner --add-readme --public --description `"Repo fart of Project Demo`"" | Write-Verbose
         gh repo create $RepoWithOwner --add-readme --public --description "Repo fart of Project Demo"
         
-        # add topic for easy find
-        "[New-Repo] gh repo edit $RepoWithOwner --add-topic $topic" | Write-Verbose
-        gh repo edit $RepoWithOwner --add-topic $topic
+        Add-TopicToRepo -RepoWithOwner $RepoWithOwner -Topic $Topic
+        Add-TopicToRepo -RepoWithOwner $RepoWithOwner -Topic projectdemo
+
     }
 } Export-ModuleMember -Function New-Repo
 
+function Add-TopicToRepo{
+    [CmdletBinding()]
+    param(
+        [Parameter(Position=0,ValueFromPipeline)][string]$RepoWithOwner,
+        [Parameter(Position=1)][string]$Topic
+    )
+    # add topic for easy find
+    $command = 'gh repo edit {repowithowner} --add-topic "{topic}"'
+    $command = $command -replace "{repowithowner}",$RepoWithOwner
+    $command = $command -replace "{topic}",$Topic
+    $command | Write-Verbose
+
+    $result = Invoke-Expression $command
+
+    $result
+}
 function Add-IssueToRepo{
     param(
         [Parameter(Position=0,ValueFromPipeline)][string]$RepoWithOwner,
