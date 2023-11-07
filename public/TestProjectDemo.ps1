@@ -1,8 +1,15 @@
 function Test-ProjectDemo{
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory)][PSCustomObject]$DemoEnv
+        [Parameter(Mandatory,ParameterSetName="Env")][PSCustomObject]$DemoEnv,
+        [Parameter(Mandatory,ParameterSetName="Name")] [string]$Name,
+        [Parameter(Mandatory,ParameterSetName="Name")] [string]$Owner
     )
+
+    # check for valir $DemoEnv
+    if(-not $DemoEnv){
+       $DemoEnv = Get-Environment -Name $Name -Owner $Owner
+    }
 
     "Testing Project Demo [{0}] for owner [{1}]" -f $demoEnv.name, $demoEnv.Owner | Write-Verbose
 

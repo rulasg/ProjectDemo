@@ -20,6 +20,7 @@ function Get-Environment{
         Owner = $Owner
         DefaultOwner = $DefaultOwner
         Topic = "projectdemo-" + $Name
+        DefaultTopic = "projectdemo"
         RepoFront = $repoFront
         RepoBack = $repoBack
         RepoFrontWithOwner = '{0}/{1}' -f $Owner, $repoFront

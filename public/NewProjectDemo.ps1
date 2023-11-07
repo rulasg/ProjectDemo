@@ -18,8 +18,8 @@ function New-ProjectDemo{
     }
 
     # Create repos
-    New-Repo -RepoWithOwner $demoEnv.RepoFrontWithOwner -Topic $demoEnv.Topic
-    New-Repo -RepoWithOwner $demoEnv.RepoBackWithOwner -Topic $demoEnv.Topic
+    New-Repo -RepoWithOwner $demoEnv.RepoFrontWithOwner -DemoTopic $demoEnv.Topic -DefaultTopic $demoEnv.DefaultTopic
+    New-Repo -RepoWithOwner $demoEnv.RepoBackWithOwner -DemoTopic $demoEnv.Topic -DefaultTopic $demoEnv.DefaultTopic
 
     # Add issues to repos
     Add-IssueToRepo -RepoWithOwner $demoEnv.RepoFrontWithOwner -Amount $demoEnv.IssuesAmount
