@@ -18,3 +18,134 @@ KEYWORDS
 
 SEE ALSO
     https://github.com/rulasg/TestingHelper/
+
+CREATE A PROJECT FOR DEMO
+
+    If you want to demo GitHub Projects you need a fre repos with issues and a project that will be used to manage the issues.
+    Use New-ProjectDemo to create a project, 2 repos and issues.
+
+    > New-ProjectDemo -name testproject  -Owner solidifydemo
+    ✓ Created repository SolidifyDemo/testproject-repo-front on GitHub
+    ✓ Edited repository solidifydemo/testproject-repo-front
+    ✓ Created repository SolidifyDemo/testproject-repo-back on GitHub
+    ✓ Edited repository solidifydemo/testproject-repo-back
+    1. Creating Issue 7e620e7d for repo [solidifydemo/testproject-repo-front]
+    2. Creating Issue 814a6044 for repo [solidifydemo/testproject-repo-front]
+    3. Creating Issue 921808ae for repo [solidifydemo/testproject-repo-front]
+    4. Creating Issue e58c4ee4 for repo [solidifydemo/testproject-repo-front]
+    5. Creating Issue 07b6fc5e for repo [solidifydemo/testproject-repo-front]
+    1. Creating Issue 8a85a534 for repo [solidifydemo/testproject-repo-back]
+    2. Creating Issue 43994e7d for repo [solidifydemo/testproject-repo-back]
+    3. Creating Issue d609e636 for repo [solidifydemo/testproject-repo-back]
+    4. Creating Issue f2a5c2c2 for repo [solidifydemo/testproject-repo-back]
+    5. Creating Issue 3d862891 for repo [solidifydemo/testproject-repo-back]
+    Project [testproject] created on Owner [solidifydemo] with number [87]
+    https://github.com/orgs/SolidifyDemo/projects/87
+
+TEST THE CREATION OF PROJECT DEMO
+
+    You can use Test-ProjectDemo to confirm that the demo has been created properly.
+
+    > Test-projectDemo -name testproject  -Owner solidifydemo 
+    True
+
+    Use the verbose mode to see the checks that are being done.
+
+    > Test-ProjectDemo -name testproject  -Owner solidifydemo -verbose
+    VERBOSE: Testing Project Demo [testproject] for owner [solidifydemo]
+    VERBOSE: Testing if repo [solidifydemo/testproject-repo-back] exists.
+    VERBOSE: [Test-Repo] gh repo view solidifydemo/testproject-repo-back *>&1
+    VERBOSE: True
+    VERBOSE: Testing if repo [solidifydemo/testproject-repo-front] exists.
+    VERBOSE: [Test-Repo] gh repo view solidifydemo/testproject-repo-front *>&1
+    VERBOSE: True
+    VERBOSE: Testing if project [testproject] exists for owner [solidifydemo]
+    VERBOSE: [Test-Project] gh project list --owner solidifydemo -L 1000 --format json
+    VERBOSE: True
+    VERBOSE: Repo [ solidifydemo/testproject-repo-back ] exists
+    VERBOSE: Repo [ solidifydemo/testproject-repo-front ] exists
+    VERBOSE: Project [testproject] exists
+    VERBOSE: Found Project Demo componets. Return True on Test
+    True
+
+DEFAULT PROJECTDEMO ENVIRONMENT VALUES
+
+    To build the demo we use standard values for the repos and issues. You can use Get-Environment to get the values.
+
+    > Get-Environment -name testproject -Owner solidifydemo
+
+    Name               : testproject
+    Owner              : solidifydemo
+    DefaultOwner       : SolidifyDemo
+    Topic              : projectdemo-testproject
+    RepoFront          : testproject-repo-front
+    RepoBack           : testproject-repo-back
+    RepoFrontWithOwner : solidifydemo/testproject-repo-front
+    RepoBackWithOwner  : solidifydemo/testproject-repo-back
+    IssuesAmount       : 5
+
+
+GET THE PROJECT NUMBER
+
+    For some gh commands the project number is used to identify the project. You can use Get-ProjectNumber to get the project number.
+
+    > Get-ProjectNumber -Name testproject -Owner Solidifydemo
+    87
+
+FIND PROJECTDEMO REPOS
+
+    ProjectDemo uses topics to scope the repos that belongs to a demo.
+    Find all repos that bleong to a demo using the default topic "projectdemo"
+
+    > gh repo list solidifydemo --topic projectdemo
+
+    Showing 4 of 4 repositories in @SolidifyDemo that match your search
+
+    SolidifyDemo/testproject2-repo-back   Repo part of Project Demo  public  0m
+    SolidifyDemo/testproject2-repo-front  Repo part of Project Demo  public  0m
+    SolidifyDemo/testproject-repo-back    Repo part of Project Demo  public  5m
+    SolidifyDemo/testproject-repo-front   Repo part of Project Demo  public  5m
+
+    To find the repos of a particular demo use the topic Topic = "projectdemo-" + $Name
+
+    > gh repo list solidifydemo --topic projectdemo-testproject2
+
+    Showing 2 of 2 repositories in @SolidifyDemo that match your search
+
+    SolidifyDemo/testproject2-repo-back   Repo part of Project Demo  public  2m
+    SolidifyDemo/testproject2-repo-front  Repo part of Project Demo  public  2m
+
+REMOVE A PROJECTDEMO
+
+    Once done, with the philosophy of create, use, destroy, you should remove the demo.
+
+    > Remove-ProjectDemo -name testproject -Owner solidifydemo
+    Removed project [91] in [solidifydemo]
+    Deleted repo [SolidifyDemo/testproject-repo-back]
+    Deleted repo [SolidifyDemo/testproject-repo-front]
+
+> gcm -module projectdemo
+
+CommandType     Name                                               Version    Source
+-----------     ----                                               -------    ------
+Function        Add-ItemsToProject                                 0.0.1      ProjectDemo
+Function        Add-ItemsToProjectFromARepo                        0.0.1      ProjectDemo
+Function        Add-TimeTrackerToProject                           0.0.1      ProjectDemo
+
+x Function        Add-IssueToRepo                                    0.0.1      ProjectDemo
+
+x Function        Get-Environment                                    0.0.1      ProjectDemo
+
+x Function        Get-ProjectNumber                                  0.0.1      ProjectDemo
+
+x Function        New-Project                                        0.0.1      ProjectDemo
+x Function        New-ProjectDemo                                    0.0.1      ProjectDemo
+x Function        New-Repo                                           0.0.1      ProjectDemo
+
+x Function        Remove-Project                                     0.0.1      ProjectDemox
+x Function        Remove-ProjectDemo                                 0.0.1      ProjectDemo
+x Function        Remove-ReposByTopic                                0.0.1      ProjectDemo
+
+X Function        Test-Project                                       0.0.1      ProjectDemo
+x Function        Test-ProjectDemo                                   0.0.1      ProjectDemo
+x Function        Test-Repo                                          0.0.1      ProjectDemo
