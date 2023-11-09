@@ -9,6 +9,12 @@ function Remove-Project{
 
     $projectNumber = Get-ProjectNumber -Name $Name -Owner $Owner
 
+    # error if $projectnumber count is more than 1
+    if($projectNumber.Count -gt 1){
+        Write-Error "More than one project found with name [$Name] in [$Owner]. [$projectNumber.Count] projects found [$projectNumber]"
+        return
+    }
+
     if($projectNumber -ne -1){
         
         if ($PSCmdlet.ShouldProcess("$Owner/$Name", "gh project delete $projectNumber --owner $owner --format json ")) {
