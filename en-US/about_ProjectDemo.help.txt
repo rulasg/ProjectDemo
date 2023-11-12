@@ -115,15 +115,6 @@ FIND PROJECTDEMO REPOS
     SolidifyDemo/testproject2-repo-back   Repo part of Project Demo  public  2m
     SolidifyDemo/testproject2-repo-front  Repo part of Project Demo  public  2m
 
-REMOVE A PROJECTDEMO
-
-    Once done, with the philosophy of create, use, destroy, you should remove the demo.
-
-    > Remove-ProjectDemo -name testproject -Owner solidifydemo
-    Removed project [91] in [solidifydemo]
-    Deleted repo [SolidifyDemo/testproject-repo-back]
-    Deleted repo [SolidifyDemo/testproject-repo-front]
-
 ADD MORE ISSUES TO REPO
 
     There is a default of issues that are added to the demo repos during New-ProjectDemo.
@@ -171,7 +162,7 @@ CREATE AN EXTRA REPO FOR THE DEMO
 
     > $e = Get-Environment -Name testproject -Owner solidifydemo
 
-    > New-Repo -RepoWithOwner solidifydemo/testproject-repo-apendix -DemoTopic $e.Topic -DefaultTopic $e.DefaultTopic
+    > New-Repo -RepoWithOwner solidifydemo/testproject-repo-apendix -RepoTopic $e.RepoTopic -FixedTopic $e.FixedTopic
     https://github.com/SolidifyDemo/testproject-repo-apendix
 
     > Add-IssueToRepo -RepoWithOwner SolidifyDemo/testproject-repo-apendix -Amount 5
@@ -229,3 +220,48 @@ ADD TIMETRACKER FIELD IN PROJECT
     Edited item "Issue 6c9efc76"
     Edited item "Issue 6d2f17c9"
     Edited item "Issue d52dc697"
+
+REMOVE A PROJECTDEMO
+
+    Once done, with the philosophy of create, use, destroy, you should remove the demo.
+
+    > Remove-ProjectDemo -name testproject -Owner solidifydemo
+    Removed project [91] in [solidifydemo]
+    Deleted repo [SolidifyDemo/testproject-repo-back]
+    Deleted repo [SolidifyDemo/testproject-repo-front]
+
+FIND PROJECTDEMO
+
+    If you can't remember the projects you have created use Find-ProrojectDemo
+
+    > find-projectDemo
+
+    Name  : testproject2
+    User  : raulgeu
+    Title : testproject2
+    Owner : SolidifyDemo
+    Url   : https://github.com/orgs/SolidifyDemo/projects/114
+
+    Name  : testproject
+    User  : rulasg
+    Title : testproject
+    Owner : SolidifyDemo
+    Url   : https://github.com/orgs/SolidifyDemo/projects/113
+
+    Filter by user to find yours
+
+    > find-projectdemo -user rulasg
+
+    Name  : testproject
+    User  : rulasg
+    Title : testproject
+    Owner : SolidifyDemo
+    Url   : https://github.com/orgs/SolidifyDemo/projects/113
+
+    Pipe the output of Find-ProjectDemo to Remove-ProjectDemo to remove the project
+
+    > find-projectdemo -user rulasg | Remove-ProjectDemo
+    Removed project [113] in [SolidifyDemo]
+    Deleted repo [SolidifyDemo/testproject-repo-back]
+    Deleted repo [SolidifyDemo/testproject-repo-front]
+

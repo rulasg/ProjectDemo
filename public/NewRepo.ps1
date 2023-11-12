@@ -2,24 +2,24 @@ function New-Repo{
     [CmdletBinding()]
     param(
         [Parameter(Mandatory,Position=0,ValueFromPipeline)][string]$RepoWithOwner,
-        [Parameter(Mandatory,Position=1)][string]$DemoTopic,
-        [Parameter(Mandatory,Position=1)][string]$DefaultTopic
+        [Parameter(Mandatory,Position=1)][string]$RepoTopic,
+        [Parameter(Mandatory,Position=1)][string]$FixedTopic
     )
 
     process {
-        "Creating repo [$RepoWithOwner] with topic [$DemoTopic]" | Write-Verbose
+        "Creating repo [$RepoWithOwner] with topic [$RepoTopic]" | Write-Verbose
 
         $commad = 'gh repo create {repowithowner} --add-readme --public --description "Repo part of Project Demo"'
         $commad = $commad -replace "{repowithowner}",$RepoWithOwner
-        
+
         $commad | Write-Verbose
 
         $result = Invoke-Expression $commad
 
         $result
-        
-        Add-TopicToRepo -RepoWithOwner $RepoWithOwner -Topic $DemoTopic
-        Add-TopicToRepo -RepoWithOwner $RepoWithOwner -Topic $DefaultTopic
+
+        Add-TopicToRepo -RepoWithOwner $RepoWithOwner -Topic $RepoTopic
+        Add-TopicToRepo -RepoWithOwner $RepoWithOwner -Topic $FixedTopic
 
     }
 } Export-ModuleMember -Function New-Repo
