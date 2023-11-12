@@ -1,30 +1,40 @@
 function New-Project{
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory)] [string]$Name,
-        [Parameter()] [string]$Owner
+        [Parameter(Mandatory)] [string]$Title,
+        [Parameter()] [string]$Owner,
+        [Parameter(Mandatory)] [string]$Description
     )
 
-    # create project
-    "Creating project [$Name] in [$Owner]" | Write-Verbose
-    "[New-Project] gh project create --owner $Owner --title $Name --format json" | Write-Verbose
-    $resultJson = gh project create --owner $Owner --title $Name --format json
+    $command = 'gh project create --owner {owner} --title {title} --format json'
+    $command = $command -replace '{owner}',$Owner
+    $command = $command -replace '{title}',$Title
+
+    $resultJson = Invoke-Expression $command
+
     $resultJson | Write-Verbose
 
     $result = $resultJson | ConvertFrom-Json
 
     if(-Not $($result.number)){
-        Write-Error "Error creating project [$Name] in [$Owner]"
+        Write-Error "Error creating project [$Title] in [$Owner]"
         return
     }
 
     $number = $result.number
+    $url = $result.Url
 
-    # Edit project about
-    "[New-Project] gh project edit $number --owner $Owner --visibility PUBLIC --readme `"README Demostrate how to use projects`" --description `"Demostrate how to use projects`"" | Write-Verbose
-    $result = gh project edit $number --owner $Owner --visibility PUBLIC --readme "README Demostrate how to use projects" --description "Demostrate how to use projects"
-    $result | Write-Verbose
+    $command | Write-Verbose
+    
+    $comand = 'gh project edit {projectnumber} --owner {owner} --visibility PUBLIC --readme "{readme}" --description "{description}"'
+    $comand = $comand -replace '{projectnumber}',$number
+    $comand = $comand -replace '{owner}',$Owner
+    $comand = $comand -replace '{readme}',"README Demostrate how to use projects"
+    $comand = $comand -replace '{description}',$Description
 
-    return $number
+    $result = Invoke-Expression $comand
+
+    return $url
+
 } Export-ModuleMember -Function New-Project
 

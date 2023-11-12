@@ -1,27 +1,45 @@
 function Get-ProjectDemo{
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory)] [string]$Name,
-        [Parameter(Mandatory)] [string]$Owner
+        [Parameter(ValueFromPipelineByPropertyName)] [string]$Name,
+        [Parameter(ValueFromPipelineByPropertyName)] [string]$Owner
     )
-    
-    $demoEnv = Get-Environment -Name $Name -Owner $Owner
-    
-    $ret =@{
 
+    process {
+
+        $demoEnv = Get-Environment -Name $Name -Owner $Owner
+        
+        $ret =@{}
+        
+        "Get Project Demo [{0}] for owner [{1}]" -f $demoEnv.name, $demoEnv.Owner | Write-Verbose
+
+        $repo1 = [PSCustomObject]@{
+            ProjectDemo = $demoEnv.Name
+            Item = "Repo1"
+            Name = $demoEnv.RepoFrontWithOwner
+            Test = $DemoEnv.RepoFrontWithOwner | Test-Repo
+        }
+
+        $repo1
+
+        $repo2 = [PSCustomObject]@{
+            ProjectDemo = $demoEnv.Name
+            Item = "Repo2"
+            Name = $demoEnv.RepoBackWithOwner
+            Test = $DemoEnv.RepoBackWithOwner | Test-Repo
+        }
+
+        $repo2
+
+        $project = [PSCustomObject]@{
+            ProjectDemo = $demoEnv.Name
+            Item = "Project"
+            Name = $demoEnv.Name
+            Test = Test-Project -Owner $DemoEnv.Owner -Title $DemoEnv.Name
+        }
+
+        $project
     }
 
-    "Get Project Demo [{0}] for owner [{1}]" -f $demoEnv.name, $demoEnv.Owner | Write-Verbose
-
-    $repoFrontVar = "[{0}]" -f $demoEnv.RepoFrontWithOwner
-    $repoBackVar  = "[{0}]" -f $demoEnv.RepoBackWithOwner
-    $projectVar   = "[{0}]" -f $demoEnv.Name
-
-    # Test repos existance
-    $ret.$repoFrontVar  = $DemoEnv.RepoBackWithOwner | Test-Repo
-    $ret.$repoBackVar  = $DemoEnv.RepoFrontWithOwner | Test-Repo
-    $ret.$projectVar = Test-Project -Owner $DemoEnv.Owner -Title $DemoEnv.Name
-
-    return $ret
-}
+} Export-ModuleMember -Function Get-ProjectDemo
 
