@@ -1,8 +1,8 @@
 function Add-ItemsToProject{
     [CmdletBinding(SupportsShouldProcess)]
     param(
-        [Parameter(Mandatory)] [string]$Name,
-        [Parameter(Mandatory)] [string]$Owner
+        [Parameter()] [string]$Name,
+        [Parameter()] [string]$Owner
     )
 
     $e = Get-Environment -Name $Name -Owner $Owner
@@ -17,10 +17,14 @@ function Add-ItemsToProject{
 function Add-ItemsToProjectFromARepo{
     [CmdletBinding(SupportsShouldProcess)]
     param(
+        [Parameter()] [string]$Owner,
         [Parameter(Mandatory)] [string]$ProjectNumber,
-        [Parameter(Mandatory)] [string]$Owner,
         [Parameter(Mandatory)] [string]$RepoNameWithOwner
     )
+
+    $verbose = $VerbosePreference -eq 'Continue'
+
+    $Owner = Get-EnvironmentOwner -Owner $Owner
 
     "Adding issues from [{0}] to project [{1}] with owner [{2}]" -f $RepoNameWithOwner, $ProjectNumber, $Owner | Write-Verbose
 
@@ -43,7 +47,12 @@ function Add-ItemsToProjectFromARepo{
     # Add all issues to the project
     $url | foreach-object {
 
-        "Adding issue [{0}] to project [{1}] with owner [{2}]" -f $_, $ProjectNumber, $Owner | Write-Verbose
+        ## check if VerbosePreference is set to silence
+        if($verbose){
+            "Adding issue [{0}] to project [{1}] with owner [{2}]" -f $_, $ProjectNumber, $Owner | Write-Verbose
+        } else {
+            Write-Host '.' -NoNewline
+        }
 
         $commmand = 'gh project item-add {number} --owner {owner} --url {url}'
         $commmand = $commmand -replace "{number}", $ProjectNumber
@@ -58,4 +67,9 @@ function Add-ItemsToProjectFromARepo{
 
         return $result
     }
+
+    if(!$verbose){
+        Write-Host
+    }
+
 } Export-ModuleMember -Function Add-ItemsToProjectFromARepo
