@@ -194,6 +194,45 @@ ADD ISSUES OF A DIFFERENT REPO
     VERBOSE: Adding issue [https://github.com/SolidifyDemo/testproject-repo-apendix/issues/1] to project [93] with owner [solidifydemo]
     VERBOSE: Performing the operation "gh issue list -R SolidifyDemo/testproject-repo-apendix --json url " on target "SolidifyDemo/testproject-repo-apendix".
 
+SHUFFLE STATUS VALUE ON ISSUES
+
+    Once added the issues to the project the Status field is not set.
+    Use the Update-FieldValueSingleSelectToProject command to set the status field to a random value.
+
+    > Update-FieldValueToProject -ProjectNumber 116 -FieldName Status
+    ...............
+
+    You can use this command to SHUFFLE values of any other SINGLE SELECT field.
+
+ADD PRIORITY FIELD TO THE PROJECT
+
+    Priority is a field very commonly used. 
+    Use Add-FieldSingleSelectToProject to add the Priority field to the project.
+    Use Update-FieldValueSingleSelectToProject to set a random value to the field.
+
+    > Add-FieldSingleSelectToProject -ProjectNumber 116 -FieldName "Priority" -Options "🔥Critical,🥵High,😊Normal,🥶Low"
+    Add Priority ot project 116
+
+    > Update-FieldValueSingleSelectToProject -ProjectNumber 116  -FieldName Priority
+    ...............
+
+    Or directly use Add-PriorityFieldToProject to add the field and set a random value.
+
+    >
+
+ADD OTHER SINGLE SELECT FIELDS LIKE SEVERITY
+
+    Other fields are also interesting to be added to allow a good demo.
+    Consider adding the Severity Field using Add-SeverityFieldToProject and set a random value using Update-FieldValueSingleSelectToProject.
+
+    > Add-FieldSingleSelectToProject -ProjectNumber 116 -FieldName "Severity" -Options "Critical⭐️⭐️⭐️⭐️,Important⭐️⭐️⭐️,Needed⭐️⭐️,Nice⭐️" 
+    Add Severity ot project 116
+
+    > update-FieldValueSingleSelectToProject -ProjectNumber 116  -FieldName Severity
+    ...............
+
+    Or directly use Add-SeverityFieldToProject to add the field and set a random value.
+
 ADD TIMETRACKER FIELD IN PROJECT
 
     To show the Field SUM feature you need a field type numeric with values. 
