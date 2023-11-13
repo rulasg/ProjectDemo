@@ -1,9 +1,13 @@
 function Get-ProjectNumber{
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory)] [string]$Name,
-        [Parameter(Mandatory)] [string]$Owner
+        [Parameter()] [string]$Name,
+        [Parameter()] [string]$Owner
     )
+
+    $Name = Get-EnvironmentName -Name $Name
+    $Owner = Get-EnvironmentOwner -Owner $Owner
+
     "[Get-ProjectNumber] Getting project number for project [$Name] in [$Owner]" | Write-Verbose
 
     "[Get-ProjectNumber] gh project list --owner $Owner --format json -L 1000" | Write-Verbose
