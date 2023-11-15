@@ -23,13 +23,18 @@ function Get-ProjectNumber{
     "[Get-ProjectNumber] Filtering projectList by name [$Name]" | Write-Verbose
     $project = $projectList | Where-Object{$_.title -eq $Name}
 
-    if($project){
-        "[Get-ProjectNumber] Found project [$($project.title)] with number [$($project.number)]" | Write-Verbose
-        $ret = $project.number
-    } else {
+    if(-Not $project){
         "[Get-ProjectNumber] No project found with name [$Name] in [$Owner]" | Write-Verbose
-        $ret = -1
+        return -1
+    } 
+    
+    if($project.Count -gt 1){
+        "[Get-ProjectNumber] Found more than one project with name [$Name] in [$Owner]" | Write-Warning
+    } else {
+        "[Get-ProjectNumber] Found project [$($project.title)] with number [$($project.number)]" | Write-Verbose
     }
+
+    $ret = $project.number[0]
 
     return $ret
 } Export-ModuleMember -Function Get-ProjectNumber
