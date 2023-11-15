@@ -45,12 +45,17 @@ function Add-TopicToRepo{
 }
 function Add-IssueToRepo{
     param(
+        [Parameter(Mandatory)][string]$Repo,
+        [Parameter(Mandatory)][string]$Owner,
         [Parameter(Position=0,ValueFromPipeline)][string]$RepoWithOwner,
         [Parameter(Position=1)][int]$Amount
     )
 
-    if(-not (Test-Repo -RepoWithOwner $RepoWithOwner)){
-        Write-Error "Repo [$RepoWithOwner] does not exist. Can not add issues"
+    $owner = Get-EnvironmentOwner -Owner $Owner
+    $repoWithOwner = "{0}/{1}" -f $owner,$Repo
+
+    if(-not (Test-Repo -RepoWithOwner $repoWithOwner)){
+        Write-Error "Repo [$repoWithOwner] does not exist. Can not add issues"
         return
     }
 
@@ -58,9 +63,12 @@ function Add-IssueToRepo{
     1..$Amount | ForEach-Object{
         # 1..1 | ForEach-Object{
             $randomId = (New-Guid).Guid.Substring(0,8)
-            "$_. Creating Issue $($randomId) for repo [$RepoWithOwner]" | Write-Host
+            
+            "$_. Creating Issue $($randomId) for repo [$repoWithOwner]" | Write-MyVerbose
+
             "[New-Repo] gh issue create --title `"Issue $($randomId)`"  --body `"Series $_ of demo issues for the Front repo`" -R $repoFulName" | Write-Verbose
-            $result = gh issue create --title "Issue $($randomId)"  --body "Series $_ of demo issues for the Front repo" -R $RepoWithOwner
+            $result = gh issue create --title "Issue $($randomId)"  --body "Series $_ of demo issues for the Front repo" -R $repoWithOwner
             $result | Write-Verbose
     }
+
 } Export-ModuleMember -Function Add-IssueToRepo
