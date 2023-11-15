@@ -15,14 +15,8 @@ function Set-ProjectDemo{
 
     $projectNumber = Get-ProjectNumber -Name $name -Owner $owner
     
-    Update-FieldValueSingleSelectToProject      -ProjectNumber $projectNumber -owner $owner -FieldName "Status"
-    
-    Add-FieldSingleSelectToProject              -ProjectNumber $projectNumber -owner $owner -FieldName "Priority" -Options "🔥Critical,🥵High,😊Normal,🥶Low"
-    Update-FieldValueSingleSelectToProject      -ProjectNumber $projectNumber -owner $owner -FieldName "Priority"
-    
-    Add-FieldSingleSelectToProject              -ProjectNumber $projectNumber -owner $owner -FieldName "Severity" -Options "Critical⭐️⭐️⭐️⭐️,Important⭐️⭐️⭐️,Needed⭐️⭐️,Nice⭐️" 
-    Update-FieldValueSingleSelectToProject      -ProjectNumber $projectNumber -owner $owner -FieldName "Severity"
+    Update-FieldValueWithSingleSelect    -ProjectNumber $projectNumber -owner $owner -FieldName "Status"
 
-    Add-TimeTrackerToProject                    -ProjectNumber $projectNumber -owner $owner 
+    Add-WellknonFieldsToProject            -ProjectNumber $projectNumber -owner $owner
 
 } Export-ModuleMember -Function Set-ProjectDemo

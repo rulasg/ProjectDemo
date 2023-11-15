@@ -36,6 +36,25 @@ function New-ProjectDemo{
     Add-IssuesToRepo -Owner $demoEnv.Owner -Repo $demoEnv.RepoBack -Amount $demoEnv.IssuesAmount
 
     # Add milestones to repos
+
+    Add-MilestonesToRepo -Repo $demoEnv.RepoFront -Owner $demoEnv.Owner
+    Add-MilestonesToRepo -Repo $demoEnv.RepoBack -Owner $demoEnv.Owner
+   
+
+    Write-MyVerbose "Finish creating demo project" -NewLine
+
+} Export-ModuleMember -Function New-ProjectDemo
+
+
+function Add-MilestonesToRepo{
+    [CmdletBinding(SupportsShouldProcess)]
+    param(
+        [Parameter(Mandatory)][string]$Repo,
+        [Parameter()][string]$Owner
+    )
+
+    $owner = Get-EnvironmentOwner -Owner $Owner
+
     "Ading Milestones to Repos" | Write-MyVerbose -NewLine
 
     $Q4FY2023 = Get-Date -Year 2023 -Month 12 -Day 31
@@ -44,17 +63,11 @@ function New-ProjectDemo{
     $Q3FY2024 = Get-Date -Year 2024 -Month 9 -Day 30
     $Q4FY2024 = Get-Date -Year 2024 -Month 12 -Day 31
 
-    Add-MilestoneToRepo -Owner $demoEnv.Owner -Repo $demoEnv.RepoFront -Title "Q4 FY2023 Front" -Date $Q4FY2023 -Description "Q4FY2023 Front Milestone" | Write-MyVerbose
-    Add-MilestoneToRepo -Owner $demoEnv.Owner -Repo $demoEnv.RepoFront -Title "Q1 FY2024 Front" -Date $Q1FY2024 -Description "Q1FY2024 Front Milestone" | Write-MyVerbose
-    Add-MilestoneToRepo -Owner $demoEnv.Owner -Repo $demoEnv.RepoFront -Title "Q2 FY2024 Front" -Date $Q2FY2024 -Description "Q2FY2024 Front Milestone" | Write-MyVerbose
-    Add-MilestoneToRepo -Owner $demoEnv.Owner -Repo $demoEnv.RepoFront -Title "Q3 FY2024 Front" -Date $Q3FY2024 -Description "Q3FY2024 Front Milestone" | Write-MyVerbose
-    Add-MilestoneToRepo -Owner $demoEnv.Owner -Repo $demoEnv.RepoFront -Title "Q4 FY2024 Front" -Date $Q4FY2024 -Description "Q4FY2024 Front Milestone" | Write-MyVerbose
-    Add-MilestoneToRepo -Owner $demoEnv.Owner -Repo $demoEnv.RepoBack -Title "Q4 FY2023 Back" -Date $Q4FY2023 -Description "Q4FY2023 Back Milestone" | Write-MyVerbose
-    Add-MilestoneToRepo -Owner $demoEnv.Owner -Repo $demoEnv.RepoBack -Title "Q1 FY2024 Back" -Date $Q1FY2024 -Description "Q1FY2024 Back Milestone" | Write-MyVerbose
-    Add-MilestoneToRepo -Owner $demoEnv.Owner -Repo $demoEnv.RepoBack -Title "Q2 FY2024 Back" -Date $Q2FY2024 -Description "Q2FY2024 Back Milestone" | Write-MyVerbose
-    Add-MilestoneToRepo -Owner $demoEnv.Owner -Repo $demoEnv.RepoBack -Title "Q3 FY2024 Back" -Date $Q3FY2024 -Description "Q3FY2024 Back Milestone" | Write-MyVerbose
-    Add-MilestoneToRepo -Owner $demoEnv.Owner -Repo $demoEnv.RepoBack -Title "Q4 FY2024 Back" -Date $Q4FY2024 -Description "Q4FY2024 Back Milestone" | Write-MyVerbose
+    Add-MilestoneToRepo -Owner $Owner -Repo $Repo -Title "Q4 FY2023 $Repo" -Date $Q4FY2023 -Description "Q4FY2023 Milestone for $Repo" | Write-MyVerbose
+    Add-MilestoneToRepo -Owner $Owner -Repo $Repo -Title "Q1 FY2024 $Repo" -Date $Q1FY2024 -Description "Q1FY2024 Milestone for $Repo" | Write-MyVerbose
+    Add-MilestoneToRepo -Owner $Owner -Repo $Repo -Title "Q2 FY2024 $Repo" -Date $Q2FY2024 -Description "Q2FY2024 Milestone for $Repo" | Write-MyVerbose
+    Add-MilestoneToRepo -Owner $Owner -Repo $Repo -Title "Q3 FY2024 $Repo" -Date $Q3FY2024 -Description "Q3FY2024 Milestone for $Repo" | Write-MyVerbose
+    Add-MilestoneToRepo -Owner $Owner -Repo $Repo -Title "Q4 FY2024 $Repo" -Date $Q4FY2024 -Description "Q4FY2024 Milestone for $Repo" | Write-MyVerbose
 
-    Write-MyVerbose "Finish creating demo project" -NewLine
-
-} Export-ModuleMember -Function New-ProjectDemo
+    "End creating milestones on projects" | Write-MyVerbose -NewLine
+} Export-ModuleMember -Function Add-MilestonesToRepo
