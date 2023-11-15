@@ -23,7 +23,11 @@ function Add-MilestoneToRepo{
     }
 
     if ($Date) {
+        
+        $date | Write-Verbose
         $datedate = Get-Date -Date $Date -ErrorAction SilentlyContinue
+        $datedate | Write-Verbose
+
         if ($datedate) {
             # Format date
             $justDate = $datedate.Date
