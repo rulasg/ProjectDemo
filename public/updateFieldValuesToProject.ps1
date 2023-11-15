@@ -64,5 +64,6 @@ function Update-FieldValueSingleSelectToProject{
         }
     }
 
-    Write-MyVerbose
+    "End shuffling field values" | Write-MyVerbose -NewLine
+
 } Export-ModuleMember -Function Update-FieldValueSingleSelectToProject

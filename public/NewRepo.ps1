@@ -1,16 +1,20 @@
-function New-Repo{
+function New-RepoDemo{
     [CmdletBinding()]
     param(
-        [Parameter(Mandatory,Position=0,ValueFromPipeline)][string]$RepoWithOwner,
-        [Parameter(Mandatory,Position=1)][string]$RepoTopic,
-        [Parameter(Mandatory,Position=1)][string]$FixedTopic
+        [Parameter(ValueFromPipelineByPropertyName)][string]$Name,
+        [Parameter(ValueFromPipelineByPropertyName)][string]$Owner,
+        [Parameter(Mandatory)][string]$Repo
     )
 
     process {
-        "Creating repo [$RepoWithOwner] with topic [$RepoTopic]" | Write-Verbose
+
+        $env = Get-Environment -Name $Name -Owner $Owner
+        $repoWithOwner = "{0}/{1}" -f $env.Owner,$Repo
+
+        "Creating repo [$repoWithOwner] with topic [$RepoTopic]" | Write-Verbose
 
         $commad = 'gh repo create {repowithowner} --add-readme --public --description "Repo part of Project Demo"'
-        $commad = $commad -replace "{repowithowner}",$RepoWithOwner
+        $commad = $commad -replace "{repowithowner}",$repoWithOwner
 
         $commad | Write-Verbose
 
@@ -18,11 +22,11 @@ function New-Repo{
 
         $result
 
-        Add-TopicToRepo -RepoWithOwner $RepoWithOwner -Topic $RepoTopic
-        Add-TopicToRepo -RepoWithOwner $RepoWithOwner -Topic $FixedTopic
+        Add-TopicToRepo -RepoWithOwner $repoWithOwner -Topic $env.FixedTopic
+        Add-TopicToRepo -RepoWithOwner $repoWithOwner -Topic $env.RepoTopic
 
     }
-} Export-ModuleMember -Function New-Repo
+} Export-ModuleMember -Function New-RepoDemo
 
 function Add-TopicToRepo{
     [CmdletBinding()]
@@ -43,11 +47,10 @@ function Add-TopicToRepo{
 
     $result
 }
-function Add-IssueToRepo{
+function Add-IssuesToRepo{
     param(
         [Parameter(Mandatory)][string]$Repo,
-        [Parameter(Mandatory)][string]$Owner,
-        [Parameter(Position=0,ValueFromPipeline)][string]$RepoWithOwner,
+        [Parameter()][string]$Owner,
         [Parameter(Position=1)][int]$Amount
     )
 
@@ -66,9 +69,11 @@ function Add-IssueToRepo{
             
             "$_. Creating Issue $($randomId) for repo [$repoWithOwner]" | Write-MyVerbose
 
-            "[New-Repo] gh issue create --title `"Issue $($randomId)`"  --body `"Series $_ of demo issues for the Front repo`" -R $repoFulName" | Write-Verbose
+            "[New-RepoDemo] gh issue create --title `"Issue $($randomId)`"  --body `"Series $_ of demo issues for the Front repo`" -R $repoFulName" | Write-Verbose
             $result = gh issue create --title "Issue $($randomId)"  --body "Series $_ of demo issues for the Front repo" -R $repoWithOwner
-            $result | Write-Verbose
+            $result | Write-MyVerbose
     }
 
-} Export-ModuleMember -Function Add-IssueToRepo
+    "End ading issues to repo [$repoWithOwner]" | Write-MyVerbose -NewLine
+
+} Export-ModuleMember -Function Add-IssuesToRepo

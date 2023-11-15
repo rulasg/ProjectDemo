@@ -25,15 +25,15 @@ function New-ProjectDemo{
     $url
 
     # Create repos
-    $repoUrl = New-Repo -RepoWithOwner $demoEnv.RepoFrontWithOwner -RepoTopic $demoEnv.RepoTopic -FixedTopic $demoEnv.FixedTopic
+    $repoUrl = New-RepoDemo -Repo $demoEnv.RepoFront -Name $demoEnv.Name -Owner $demoEnv.Owner
     $repoUrl
 
-    $repoUrl = New-Repo -RepoWithOwner $demoEnv.RepoBackWithOwner -RepoTopic $demoEnv.RepoTopic -FixedTopic $demoEnv.FixedTopic
+    $repoUrl = New-RepoDemo -Repo $demoEnv.RepoBack -Name $demoEnv.Name -Owner $demoEnv.Owner
     $repoUrl
 
     # Add issues to repos
-    Add-IssueToRepo -Owner $demoEnv.Owner -Repo $demoEnv.RepoFront -Amount $demoEnv.IssuesAmount
-    Add-IssueToRepo -Owner $demoEnv.Owner -Repo $demoEnv.RepoBack -Amount $demoEnv.IssuesAmount
+    Add-IssuesToRepo -Owner $demoEnv.Owner -Repo $demoEnv.RepoFront -Amount $demoEnv.IssuesAmount
+    Add-IssuesToRepo -Owner $demoEnv.Owner -Repo $demoEnv.RepoBack -Amount $demoEnv.IssuesAmount
 
     # Add milestones to repos
     "Ading Milestones to Repos" | Write-MyVerbose -NewLine
