@@ -25,22 +25,12 @@ CREATE A PROJECT FOR DEMO
     Use New-ProjectDemo to create a project, 2 repos and issues.
 
     > New-ProjectDemo -name testproject  -Owner solidifydemo
-    ✓ Created repository SolidifyDemo/testproject-repo-front on GitHub
-    ✓ Edited repository solidifydemo/testproject-repo-front
-    ✓ Created repository SolidifyDemo/testproject-repo-back on GitHub
-    ✓ Edited repository solidifydemo/testproject-repo-back
-    1. Creating Issue 7e620e7d for repo [solidifydemo/testproject-repo-front]
-    2. Creating Issue 814a6044 for repo [solidifydemo/testproject-repo-front]
-    3. Creating Issue 921808ae for repo [solidifydemo/testproject-repo-front]
-    4. Creating Issue e58c4ee4 for repo [solidifydemo/testproject-repo-front]
-    5. Creating Issue 07b6fc5e for repo [solidifydemo/testproject-repo-front]
-    1. Creating Issue 8a85a534 for repo [solidifydemo/testproject-repo-back]
-    2. Creating Issue 43994e7d for repo [solidifydemo/testproject-repo-back]
-    3. Creating Issue d609e636 for repo [solidifydemo/testproject-repo-back]
-    4. Creating Issue f2a5c2c2 for repo [solidifydemo/testproject-repo-back]
-    5. Creating Issue 3d862891 for repo [solidifydemo/testproject-repo-back]
-    Project [testproject] created on Owner [solidifydemo] with number [87]
-    https://github.com/orgs/SolidifyDemo/projects/87
+    https://github.com/orgs/SolidifyDemo/projects/120
+    https://github.com/SolidifyDemo/testproject-repo-front
+    https://github.com/SolidifyDemo/testproject-repo-back
+    .....
+    .....
+    ..........
 
 TEST THE CREATION OF PROJECT DEMO
 
@@ -121,7 +111,7 @@ ADD MORE ISSUES TO REPO
     Is possible that to make a better demo you need more issued on the demo repos.
     Use Add-IssuesToRepo to add mode issues to a repo.
 
-    > Add-IssueToRepo -RepoWithOwner solidifydemo/testproject2-repo-back  -Amount 5
+    > Add-IssueToRepo -Owner solidifydemo -Repo testproject2-repo-back -Amount 5
     1. Creating Issue e97444a6 for repo [solidifydemo/testproject2-repo-back]
     2. Creating Issue ae0c3bfb for repo [solidifydemo/testproject2-repo-back]
     3. Creating Issue 92a7ce82 for repo [solidifydemo/testproject2-repo-back]
@@ -165,7 +155,7 @@ CREATE AN EXTRA REPO FOR THE DEMO
     > New-Repo -RepoWithOwner solidifydemo/testproject-repo-apendix -RepoTopic $e.RepoTopic -FixedTopic $e.FixedTopic
     https://github.com/SolidifyDemo/testproject-repo-apendix
 
-    > Add-IssueToRepo -RepoWithOwner SolidifyDemo/testproject-repo-apendix -Amount 5
+    > Add-IssueToRepo -Owner SolidifyDemo -Repo testproject-repo-apendix -Amount 5
     1. Creating Issue 1539fb5a for repo [SolidifyDemo/testproject-repo-apendix]
     2. Creating Issue 4cabf216 for repo [SolidifyDemo/testproject-repo-apendix]
     3. Creating Issue d5730f34 for repo [SolidifyDemo/testproject-repo-apendix]
