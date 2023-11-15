@@ -7,8 +7,6 @@ function Edit-ItemField{
         [Parameter()][Int32]$Number,
         [Parameter()][string]$Text,
         [Parameter()][string]$OptionId
-
-
     )
 
     $command = 'gh project item-edit --id {itemid} --field-id {fieldid} --project-id {projectid}'
@@ -21,8 +19,8 @@ function Edit-ItemField{
         $command = $command + " --text $text "
     }
 
-    if($Option){
-        $command = $command + " --single-select-option-id $option "
+    if($OptionId){
+        $command = $command + " --single-select-option-id $OptionId "
     }
 
     $command = $command -replace "{itemid}", $itemId

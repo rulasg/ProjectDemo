@@ -29,3 +29,18 @@ function Add-SeverityFieldToProject{
     Add-FieldSingleSelectToProject -ProjectNumber $ProjectNumber -Owner $Owner -FieldName $fieldName -Options $options
 
 } Export-ModuleMember -Function Add-SeverityFieldToProject
+
+function Add-CommentFieldToProject{
+    [CmdletBinding(SupportsShouldProcess)]
+    param(
+        [Parameter(Mandatory,Position=0)] [string]$ProjectNumber,
+        [Parameter()] [string]$Owner
+    )
+
+    $owner = Get-EnvironmentOwner -Owner $Owner
+
+    $fieldname = "Comment"
+
+    Add-FieldText -ProjectNumber $ProjectNumber -FieldName $fieldname -Owner $Owner
+
+} Export-ModuleMember -Function Add-CommentFieldToProject
