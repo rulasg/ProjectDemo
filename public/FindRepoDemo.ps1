@@ -1,4 +1,4 @@
-function Get-RepoDemo{
+function Find-RepoDemo{
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipelineByPropertyName)] [string]$Name,
@@ -11,13 +11,13 @@ function Get-RepoDemo{
 
         "Get Repo Demo [{0}] for owner [{1}]" -f $demoEnv.name, $demoEnv.Owner | Write-Verbose
 
-        Get-RepoByTopic -Owner $demoEnv.Owner -Topic $demoEnv.RepoTopic
+        Find-RepoByTopic -Owner $demoEnv.Owner -Topic $demoEnv.RepoTopic
 
     }
 
-} Export-ModuleMember -Function Get-RepoDemo
+} Export-ModuleMember -Function Find-RepoDemo
 
-function Get-RepoDemoAll{
+function Find-RepoDemoAll{
     [CmdletBinding()]
     param(
         [Parameter(ValueFromPipelineByPropertyName)] [string]$Owner
@@ -29,13 +29,13 @@ function Get-RepoDemoAll{
 
         "Get Repo Demo [{0}] for owner [{1}]" -f $demoEnv.name, $demoEnv.Owner | Write-Verbose
 
-        Get-RepoByTopic -Owner $demoEnv.Owner -Topic $demoEnv.FixedTopic
+        Find-RepoByTopic -Owner $demoEnv.Owner -Topic $demoEnv.FixedTopic
 
     }
 
-} Export-ModuleMember -Function Get-RepoDemoAll
+} Export-ModuleMember -Function Find-RepoDemoAll
 
-function Get-RepoByTopic{
+function Find-RepoByTopic{
     [CmdletBinding()]
     param(
         [Parameter(Mandatory)] [string]$Owner,
@@ -46,13 +46,13 @@ function Get-RepoByTopic{
 
         "Get Repo with topic [{0}] for owner [{1}]" -f $Topic, $Owner | Write-Verbose
 
-        $command = 'gh repo list  {owner} --topic {topic} --json nameWithOwner'
+        $command = 'gh repo list  {owner} --topic {topic} --json url'
         $command = $command -replace '{owner}', $Owner
         $command = $command -replace '{topic}', $Topic
 
         $resultjson = Invoke-Expression $command
 
-        $result = $resultjson | ConvertFrom-Json | Select-Object -ExpandProperty nameWithOwner
+        $result = $resultjson | ConvertFrom-Json | Select-Object -ExpandProperty url
 
         return $result
 
