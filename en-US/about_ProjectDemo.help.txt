@@ -19,7 +19,43 @@ KEYWORDS
 SEE ALSO
     https://github.com/rulasg/TestingHelper/
 
-CREATE A PROJECT FOR DEMO
+FULL SET OF FUNCTIONALITY
+
+    1. New-ProjectDemo -name testproject  -Owner solidifydemo
+    2. Get-ProjectDemo -name testproject  -Owner solidifydemo
+    3. Get-Environment -name testproject -Owner solidifydemo
+    4. Get-ProjectNumber -Name testproject -Owner Solidifydemo
+    5. Find-RepoDemo -name testproject -Owner solidifydemo
+    6. Add-IssuesToRepo -Owner solidifydemo -Repo testproject2-repo-back -Amount 5
+    7. Add-ItemsToProject -name testproject  -Owner solidifydemo
+    8. New-RepoDemo -RepoWithOwner solidifydemo/testproject-repo-apendix -RepoTopic $e.RepoTopic -FixedTopic $e.FixedTopic
+    9. Add-ItemsToProjectFromARepo -Owner solidifydemo -ProjectNumber 129 -Repo testproject-repo-apendix
+    10. Update-Update-FieldValueSingleSelectToProject -ProjectNumber 116 -FieldName Status
+    11. Add-FieldSingleSelectToProject -ProjectNumber 116 -FieldName "Priority" -Options "🔥Critical,🥵High,😊Normal,🥶Low"
+    12. Add-FieldSingleSelectToProject -ProjectNumber 116 -FieldName "Severity" -Options "Critical⭐️⭐️⭐️⭐️,Important⭐️⭐️⭐️,Needed⭐️⭐️,Nice⭐️" 
+    13. Add-TimeTrackerToProject -owner solidifydemo -ProjectNumber 116
+    14. Remove-ProjectDemo -name testproject -Owner solidifydemo
+    15. Find-ProjectDemo
+
+FULL DEMO FLOW
+
+    - New-ProjectDemo -name testproject  -Owner solidifydemo
+
+    - Get-ProjectDemo -name testproject  -Owner solidifydemo
+    - Get-ProjectNumber -Name testproject -Owner Solidifydemo
+
+    - Add-ItemsToProject -name testproject  -Owner solidifydemo
+    
+    - Update-FieldValueSingleSelectToProject -ProjectNumber 116 -FieldName Status
+    
+    - Add-FieldSingleSelectToProject -ProjectNumber 116 -FieldName "Priority" -Options "🔥Critical,🥵High,😊Normal,🥶Low"
+    - Add-FieldSingleSelectToProject -ProjectNumber 116 -FieldName "Severity" -Options "Critical⭐️⭐️⭐️⭐️,Important⭐️⭐️⭐️,Needed⭐️⭐️,Nice⭐️" 
+    - Add-TimeTrackerToProject -owner solidifydemo -ProjectNumber 116
+    
+    - Find-ProjectDemo --owner solidifyDemo
+    - Remove-ProjectDemo -name testproject -Owner solidifydemo
+
+1. CREATE A PROJECT FOR DEMO
 
     If you want to demo GitHub Projects you need a fre repos with issues and a project that will be used to manage the issues.
     Use New-ProjectDemo to create a project, 2 repos and issues.
@@ -32,33 +68,19 @@ CREATE A PROJECT FOR DEMO
     .....
     ..........
 
-TEST THE CREATION OF PROJECT DEMO
+2. GET PROJECT DEMO
 
-    You can use Test-ProjectDemo to confirm that the demo has been created properly.
+    You can use Get-ProjectDemo to confirm that the demo has been created properly.
 
-    > Test-projectDemo -name testproject  -Owner solidifydemo 
-    True
+    > Get-ProjectDemo -name testproject  -Owner solidifydemo
 
-    Use the verbose mode to see the checks that are being done.
+    ProjectDemo     Item  Name                            Test
+    -----------     ----  ----                            ----
+    testproject Repo1 SolidifyDemo/testproject-repo-front True
+    testproject Repo2 SolidifyDemo/testproject-repo-back  True
+    testproject Proj… testproject                         True
 
-    > Test-ProjectDemo -name testproject  -Owner solidifydemo -verbose
-    VERBOSE: Testing Project Demo [testproject] for owner [solidifydemo]
-    VERBOSE: Testing if repo [solidifydemo/testproject-repo-back] exists.
-    VERBOSE: [Test-Repo] gh repo view solidifydemo/testproject-repo-back *>&1
-    VERBOSE: True
-    VERBOSE: Testing if repo [solidifydemo/testproject-repo-front] exists.
-    VERBOSE: [Test-Repo] gh repo view solidifydemo/testproject-repo-front *>&1
-    VERBOSE: True
-    VERBOSE: Testing if project [testproject] exists for owner [solidifydemo]
-    VERBOSE: [Test-Project] gh project list --owner solidifydemo -L 1000 --format json
-    VERBOSE: True
-    VERBOSE: Repo [ solidifydemo/testproject-repo-back ] exists
-    VERBOSE: Repo [ solidifydemo/testproject-repo-front ] exists
-    VERBOSE: Project [testproject] exists
-    VERBOSE: Found Project Demo componets. Return True on Test
-    True
-
-DEFAULT PROJECTDEMO ENVIRONMENT VALUES
+3. DEFAULT PROJECTDEMO ENVIRONMENT VALUES
 
     To build the demo we use standard values for the repos and issues. You can use Get-Environment to get the values.
 
@@ -75,17 +97,17 @@ DEFAULT PROJECTDEMO ENVIRONMENT VALUES
     IssuesAmount       : 5
 
 
-GET THE PROJECT NUMBER
+4. GET THE PROJECT NUMBER
 
     For some gh commands the project number is used to identify the project. You can use Get-ProjectNumber to get the project number.
 
     > Get-ProjectNumber -Name testproject -Owner Solidifydemo
     87
 
-FIND PROJECTDEMO REPOS
+5. FIND PROJECTDEMO REPOS
 
     ProjectDemo uses topics to scope the repos that belongs to a demo.
-    Find all repos that bleong to a demo using the default topic "projectdemo"
+    Find-RepoDemoAll finds all repos that belong to any demo using the default topic "projectdemo"
 
     > gh repo list solidifydemo --topic projectdemo
 
@@ -105,64 +127,42 @@ FIND PROJECTDEMO REPOS
     SolidifyDemo/testproject2-repo-back   Repo part of Project Demo  public  2m
     SolidifyDemo/testproject2-repo-front  Repo part of Project Demo  public  2m
 
-ADD MORE ISSUES TO REPO
+6. ADD MORE ISSUES TO REPO
 
     There is a default of issues that are added to the demo repos during New-ProjectDemo.
     Is possible that to make a better demo you need more issued on the demo repos.
     Use Add-IssuesToRepo to add mode issues to a repo.
 
-    > Add-IssueToRepo -Owner solidifydemo -Repo testproject2-repo-back -Amount 5
+    > Add-IssuesToRepo -Owner solidifydemo -Repo testproject2-repo-back -Amount 5
     1. Creating Issue e97444a6 for repo [solidifydemo/testproject2-repo-back]
     2. Creating Issue ae0c3bfb for repo [solidifydemo/testproject2-repo-back]
     3. Creating Issue 92a7ce82 for repo [solidifydemo/testproject2-repo-back]
     4. Creating Issue 77850d3c for repo [solidifydemo/testproject2-repo-back]
     5. Creating Issue 3a262c6e for repo [solidifydemo/testproject2-repo-back]
 
-ADD ALL DEMO REPOS ISSUES TO DEMO PROJECT
+7. ADD ALL DEMO REPOS ISSUES TO DEMO PROJECT
 
     On demo creation issues are not added to the project. This allows to show the projet emptuy of issues.
     When needed use Add-ItemsToProject to add all the demo repo issues to the demo project.
-    Use the Verbose mode to see as the issues are added.
 
-    > add-ItemsToProject -name testproject  -Owner solidifydemo -Verbose
-    VERBOSE: [Get-ProjectNumber] Getting project number for project [testproject] in [solidifydemo]
-    VERBOSE: [Get-ProjectNumber] gh project list --owner solidifydemo --format json -L 1000
-    VERBOSE: [Get-ProjectNumber] Found 45 projects
-    VERBOSE: [Get-ProjectNumber] Filtering projectList by name [testproject]
-    VERBOSE: [Get-ProjectNumber] Found project [testproject] with number [93]
-    VERBOSE: Adding issues from [solidifydemo/testproject-repo-front] to project [93] with owner [solidifydemo]
-    VERBOSE: Found [5 issues in repo]
-    VERBOSE: Adding issue [https://github.com/SolidifyDemo/testproject-repo-front/issues/5] to project [93] with owner [solidifydemo]
-    VERBOSE: Adding issue [https://github.com/SolidifyDemo/testproject-repo-front/issues/4] to project [93] with owner [solidifydemo]
-    VERBOSE: Adding issue [https://github.com/SolidifyDemo/testproject-repo-front/issues/3] to project [93] with owner [solidifydemo]
-    VERBOSE: Adding issue [https://github.com/SolidifyDemo/testproject-repo-front/issues/2] to project [93] with owner [solidifydemo]
-    VERBOSE: Adding issue [https://github.com/SolidifyDemo/testproject-repo-front/issues/1] to project [93] with owner [solidifydemo]
-    VERBOSE: Adding issues from [solidifydemo/testproject-repo-back] to project [93] with owner [solidifydemo]
-    VERBOSE: Found [5 issues in repo]
-    VERBOSE: Adding issue [https://github.com/SolidifyDemo/testproject-repo-back/issues/5] to project [93] with owner [solidifydemo]
-    VERBOSE: Adding issue [https://github.com/SolidifyDemo/testproject-repo-back/issues/4] to project [93] with owner [solidifydemo]
-    VERBOSE: Adding issue [https://github.com/SolidifyDemo/testproject-repo-back/issues/3] to project [93] with owner [solidifydemo]
-    VERBOSE: Adding issue [https://github.com/SolidifyDemo/testproject-repo-back/issues/2] to project [93] with owner [solidifydemo]
-    VERBOSE: Adding issue [https://github.com/SolidifyDemo/testproject-repo-back/issues/1] to project [93] with owner [solidifydemo]
+    > Add-ItemsToProject
+    .....
+    .....
 
-CREATE AN EXTRA REPO FOR THE DEMO
+8. CREATE AN EXTRA REPO FOR THE DEMO
 
     If you need an extra repo to show a 3 repo project planning follow this steps.
     Use the environments topics to link the repo to the demo for later removal.
 
     > $e = Get-Environment -Name testproject -Owner solidifydemo
 
-    > New-Repo -RepoWithOwner solidifydemo/testproject-repo-apendix -RepoTopic $e.RepoTopic -FixedTopic $e.FixedTopic
+    > New-RepoDemo -Name testproject -Owner solidifydemo testproject-repo-apendix 
     https://github.com/SolidifyDemo/testproject-repo-apendix
 
-    > Add-IssueToRepo -Owner SolidifyDemo -Repo testproject-repo-apendix -Amount 5
-    1. Creating Issue 1539fb5a for repo [SolidifyDemo/testproject-repo-apendix]
-    2. Creating Issue 4cabf216 for repo [SolidifyDemo/testproject-repo-apendix]
-    3. Creating Issue d5730f34 for repo [SolidifyDemo/testproject-repo-apendix]
-    4. Creating Issue 3cafdfe2 for repo [SolidifyDemo/testproject-repo-apendix]
-    5. Creating Issue 393e63ec for repo [SolidifyDemo/testproject-repo-apendix]
+    > Add-IssuesToRepo -Owner SolidifyDemo -Repo testproject-repo-apendix -Amount 5
+    .....
 
-ADD ISSUES OF A DIFFERENT REPO
+9. ADD ISSUES OF A DIFFERENT REPO
 
     It may be useful to add issues from a different repo to the demo project.
     Use Add-ItemsToProjectFromARepo to add issues from a different repo to the demo project.
@@ -170,37 +170,26 @@ ADD ISSUES OF A DIFFERENT REPO
     > Get-ProjectNumber -Name testproject -Owner Solidifydemo
     93
 
-    > Add-ItemsToProjectFromARepo -ProjectNumber 93 -Owner solidifydemo -RepoNameWithOwner SolidifyDemo/testproject-repo-apendix -verbose
-    VERBOSE: Adding issues from [SolidifyDemo/testproject-repo-apendix] to project [93] with owner [solidifydemo]
-    VERBOSE: Found [5 issues in repo]
-    VERBOSE: Adding issue [https://github.com/SolidifyDemo/testproject-repo-apendix/issues/5] to project [93] with owner [solidifydemo]
-    VERBOSE: Performing the operation "gh issue list -R SolidifyDemo/testproject-repo-apendix --json url " on target "SolidifyDemo/testproject-repo-apendix".
-    VERBOSE: Adding issue [https://github.com/SolidifyDemo/testproject-repo-apendix/issues/4] to project [93] with owner [solidifydemo]
-    VERBOSE: Performing the operation "gh issue list -R SolidifyDemo/testproject-repo-apendix --json url " on target "SolidifyDemo/testproject-repo-apendix".
-    VERBOSE: Adding issue [https://github.com/SolidifyDemo/testproject-repo-apendix/issues/3] to project [93] with owner [solidifydemo]
-    VERBOSE: Performing the operation "gh issue list -R SolidifyDemo/testproject-repo-apendix --json url " on target "SolidifyDemo/testproject-repo-apendix".
-    VERBOSE: Adding issue [https://github.com/SolidifyDemo/testproject-repo-apendix/issues/2] to project [93] with owner [solidifydemo]
-    VERBOSE: Performing the operation "gh issue list -R SolidifyDemo/testproject-repo-apendix --json url " on target "SolidifyDemo/testproject-repo-apendix".
-    VERBOSE: Adding issue [https://github.com/SolidifyDemo/testproject-repo-apendix/issues/1] to project [93] with owner [solidifydemo]
-    VERBOSE: Performing the operation "gh issue list -R SolidifyDemo/testproject-repo-apendix --json url " on target "SolidifyDemo/testproject-repo-apendix".
+    > Add-ItemsToProjectFromARepo -Owner solidifydemo -ProjectNumber 129 -Repo testproject-repo-apendix
+    .....
 
-SHUFFLE STATUS VALUE ON ISSUES
+10. SHUFFLE STATUS VALUE ON ISSUES
 
     Once added the issues to the project the Status field is not set.
     Use the Update-FieldValueSingleSelectToProject command to set the status field to a random value.
 
-    > Update-FieldValueToProject -ProjectNumber 116 -FieldName Status
+    > Update-FieldValueSingleSelectToProject -Owner Solidifydemo -ProjectNumber 116 -FieldName Status
     ...............
 
     You can use this command to SHUFFLE values of any other SINGLE SELECT field.
 
-ADD PRIORITY FIELD TO THE PROJECT
+11. ADD PRIORITY FIELD TO THE PROJECT
 
     Priority is a field very commonly used. 
     Use Add-FieldSingleSelectToProject to add the Priority field to the project.
     Use Update-FieldValueSingleSelectToProject to set a random value to the field.
 
-    > Add-FieldSingleSelectToProject -ProjectNumber 116 -FieldName "Priority" -Options "🔥Critical,🥵High,😊Normal,🥶Low"
+    > Add-FieldSingleSelectToProject -Owner SolidifyDemo -ProjectNumber 116 -FieldName "Priority" -Options "🔥Critical,🥵High,😊Normal,🥶Low"
     Add Priority ot project 116
 
     > Update-FieldValueSingleSelectToProject -ProjectNumber 116  -FieldName Priority
@@ -208,9 +197,9 @@ ADD PRIORITY FIELD TO THE PROJECT
 
     Or directly use Add-PriorityFieldToProject to add the field and set a random value.
 
-    >
+    > Add-PriorityFieldToProject -ProjectNumber 128 -owner solidifydemo
 
-ADD OTHER SINGLE SELECT FIELDS LIKE SEVERITY
+12. ADD OTHER SINGLE SELECT FIELDS LIKE SEVERITY
 
     Other fields are also interesting to be added to allow a good demo.
     Consider adding the Severity Field using Add-SeverityFieldToProject and set a random value using Update-FieldValueSingleSelectToProject.
@@ -223,7 +212,7 @@ ADD OTHER SINGLE SELECT FIELDS LIKE SEVERITY
 
     Or directly use Add-SeverityFieldToProject to add the field and set a random value.
 
-ADD TIMETRACKER FIELD IN PROJECT
+13. ADD TIMETRACKER FIELD IN PROJECT
 
     To show the Field SUM feature you need a field type numeric with values. 
     Use Add-TimeTrackerToProject to add a field to the project and add a random value the items in the project.
@@ -232,25 +221,11 @@ ADD TIMETRACKER FIELD IN PROJECT
     > Get-ProjectNumber -Name testproject -Owner Solidifydemo
     93
 
-    > Add-TimeTrackerToProject -owner solidifydemo -ProjectNumber 93
+    > Add-TimeTrackerToProject -owner solidifydemo -ProjectNumber 128
     Created field
-    Edited item "Issue 8f29721b"
-    Edited item "Issue 55380972"
-    Edited item "Issue 6b996ca6"
-    Edited item "Issue ea39678a"
-    Edited item "Issue 4fb2cbcb"
-    Edited item "Issue 43437b6f"
-    Edited item "Issue 88f36187"
-    Edited item "Issue 2eef1078"
-    Edited item "Issue 3980dce2"
-    Edited item "Issue e092ade0"
-    Edited item "Issue 4045c121"
-    Edited item "Issue dea37647"
-    Edited item "Issue 6c9efc76"
-    Edited item "Issue 6d2f17c9"
-    Edited item "Issue d52dc697"
+    .....................
 
-REMOVE A PROJECTDEMO
+14. REMOVE A PROJECTDEMO
 
     Once done, with the philosophy of create, use, destroy, you should remove the demo.
 
@@ -259,11 +234,11 @@ REMOVE A PROJECTDEMO
     Deleted repo [SolidifyDemo/testproject-repo-back]
     Deleted repo [SolidifyDemo/testproject-repo-front]
 
-FIND PROJECTDEMO
+15. FIND PROJECTDEMO
 
     If you can't remember the projects you have created use Find-ProrojectDemo
 
-    > find-projectDemo
+    > Find-ProjectDemo
 
     Name  : testproject2
     User  : raulgeu
