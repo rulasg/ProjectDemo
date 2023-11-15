@@ -10,8 +10,9 @@ function Add-ItemsToProject{
     $number = Get-ProjectNumber -name $e.Name -Owner $e.Owner
 
     # Get all issues
-    Add-ItemsToProjectFromARepo -ProjectNumber $number -Owner $e.Owner -RepoNameWithOwner $e.RepoFrontWithOwner
-    Add-ItemsToProjectFromARepo -ProjectNumber $number -Owner $e.Owner -RepoNameWithOwner $e.RepoBackWithOwner
+    Add-ItemsToProjectFromARepo -ProjectNumber $number -Owner $e.Owner -Repo $e.RepoFront
+    Add-ItemsToProjectFromARepo -ProjectNumber $number -Owner $e.Owner -Repo $e.RepoBack
+    
 } Export-ModuleMember -Function Add-ItemsToProject
 
 function Add-ItemsToProjectFromARepo{
