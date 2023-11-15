@@ -1,4 +1,4 @@
-function Add-MilesonesToRepo{
+function Add-MilestoneToRepo{
     [CmdletBinding(SupportsShouldProcess)]
     param(
         [Parameter(Mandatory)] [string]$Repo,
@@ -46,4 +46,4 @@ function Add-MilesonesToRepo{
 
     return $result.html_url
 
-} Export-ModuleMember -Function Add-MilesonesToRepo
+} Export-ModuleMember -Function Add-MilestoneToRepo
