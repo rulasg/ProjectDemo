@@ -15,13 +15,13 @@ function Set-ProjectDemo{
 
     $projectNumber = Get-ProjectNumber -Name $name -Owner $owner
     
-    Update-FieldValueSingleSelectToProject      -ProjectNumber $projectNumber -owner $owner -FieldName "Status"
+    Update-FieldValueWithSingleSelect      -ProjectNumber $projectNumber -owner $owner -FieldName "Status"
     
     Add-FieldSingleSelectToProject              -ProjectNumber $projectNumber -owner $owner -FieldName "Priority" -Options "🔥Critical,🥵High,😊Normal,🥶Low"
-    Update-FieldValueSingleSelectToProject      -ProjectNumber $projectNumber -owner $owner -FieldName "Priority"
+    Update-FieldValueWithSingleSelect      -ProjectNumber $projectNumber -owner $owner -FieldName "Priority"
     
     Add-FieldSingleSelectToProject              -ProjectNumber $projectNumber -owner $owner -FieldName "Severity" -Options "Critical⭐️⭐️⭐️⭐️,Important⭐️⭐️⭐️,Needed⭐️⭐️,Nice⭐️" 
-    Update-FieldValueSingleSelectToProject      -ProjectNumber $projectNumber -owner $owner -FieldName "Severity"
+    Update-FieldValueWithSingleSelect      -ProjectNumber $projectNumber -owner $owner -FieldName "Severity"
 
     Add-TimeTrackerToProject                    -ProjectNumber $projectNumber -owner $owner 
 

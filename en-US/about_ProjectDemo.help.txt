@@ -30,7 +30,7 @@ FULL SET OF FUNCTIONALITY
     7. Add-ItemsToProject -name testproject  -Owner solidifydemo
     8. New-RepoDemo -RepoWithOwner solidifydemo/testproject-repo-apendix -RepoTopic $e.RepoTopic -FixedTopic $e.FixedTopic
     9. Add-ItemsToProjectFromARepo -Owner solidifydemo -ProjectNumber 129 -Repo testproject-repo-apendix
-    10. Update-Update-FieldValueSingleSelectToProject -ProjectNumber 116 -FieldName Status
+    10. Update-Update-FieldValueWithSingleSelect -ProjectNumber 116 -FieldName Status
     11. Add-FieldSingleSelectToProject -ProjectNumber 116 -FieldName "Priority" -Options "🔥Critical,🥵High,😊Normal,🥶Low"
     12. Add-FieldSingleSelectToProject -ProjectNumber 116 -FieldName "Severity" -Options "Critical⭐️⭐️⭐️⭐️,Important⭐️⭐️⭐️,Needed⭐️⭐️,Nice⭐️" 
     13. Add-TimeTrackerToProject -owner solidifydemo -ProjectNumber 116
@@ -46,7 +46,7 @@ FULL DEMO FLOW
 
     - Add-ItemsToProject -name testproject  -Owner solidifydemo
     
-    - Update-FieldValueSingleSelectToProject -ProjectNumber 116 -FieldName Status
+    - Update-FieldValueWithSingleSelect -ProjectNumber 116 -FieldName Status
     
     - Add-FieldSingleSelectToProject -ProjectNumber 116 -FieldName "Priority" -Options "🔥Critical,🥵High,😊Normal,🥶Low"
     - Add-FieldSingleSelectToProject -ProjectNumber 116 -FieldName "Severity" -Options "Critical⭐️⭐️⭐️⭐️,Important⭐️⭐️⭐️,Needed⭐️⭐️,Nice⭐️" 
@@ -176,9 +176,9 @@ FULL DEMO FLOW
 10. SHUFFLE STATUS VALUE ON ISSUES
 
     Once added the issues to the project the Status field is not set.
-    Use the Update-FieldValueSingleSelectToProject command to set the status field to a random value.
+    Use the Update-FieldValueWithSingleSelect command to set the status field to a random value.
 
-    > Update-FieldValueSingleSelectToProject -Owner Solidifydemo -ProjectNumber 116 -FieldName Status
+    > Update-FieldValueWithSingleSelect -Owner Solidifydemo -ProjectNumber 116 -FieldName Status
     ...............
 
     You can use this command to SHUFFLE values of any other SINGLE SELECT field.
@@ -187,12 +187,12 @@ FULL DEMO FLOW
 
     Priority is a field very commonly used. 
     Use Add-FieldSingleSelectToProject to add the Priority field to the project.
-    Use Update-FieldValueSingleSelectToProject to set a random value to the field.
+    Use Update-FieldValueWithSingleSelect to set a random value to the field.
 
     > Add-FieldSingleSelectToProject -Owner SolidifyDemo -ProjectNumber 116 -FieldName "Priority" -Options "🔥Critical,🥵High,😊Normal,🥶Low"
     Add Priority ot project 116
 
-    > Update-FieldValueSingleSelectToProject -ProjectNumber 116  -FieldName Priority
+    > Update-FieldValueWithSingleSelect -ProjectNumber 116  -FieldName Priority
     ...............
 
     Or directly use Add-PriorityFieldToProject to add the field and set a random value.
@@ -202,7 +202,7 @@ FULL DEMO FLOW
 12. ADD OTHER SINGLE SELECT FIELDS LIKE SEVERITY
 
     Other fields are also interesting to be added to allow a good demo.
-    Consider adding the Severity Field using Add-SeverityFieldToProject and set a random value using Update-FieldValueSingleSelectToProject.
+    Consider adding the Severity Field using Add-SeverityFieldToProject and set a random value using Update-FieldValueWithSingleSelect.
 
     > Add-FieldSingleSelectToProject -ProjectNumber 116 -FieldName "Severity" -Options "Critical⭐️⭐️⭐️⭐️,Important⭐️⭐️⭐️,Needed⭐️⭐️,Nice⭐️" 
     Add Severity ot project 116

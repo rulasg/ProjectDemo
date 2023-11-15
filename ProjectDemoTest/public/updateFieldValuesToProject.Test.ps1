@@ -1,8 +1,36 @@
 
-function ProjectDemoTest_FieldValueToProject_Update{
+function ProjectDemoTest_FieldValueWithSingleSelect_Update{
 
-    # Update-FieldValueSingleSelectToProject -ProjectNumber 116 -FieldName "Status" 
-    # Update-FieldValueSingleSelectToProject -ProjectNumber 116 -FieldName "Status" -verbose -InformationAction Continue
+    Assert-SkipTest
+
+    $pn = Get-ProjectNumber 
+    $fieldname =  "Priority"
+
+    # Update-FieldValueWithSingleSelect -ProjectNumber 116 -FieldName "Status" 
+    Update-FieldValueWithSingleSelect  $pn $fieldname -verbose -InformationAction Continue
+
+    Assert-NotImplemented
+}
+function ProjectDemoTest_FieldValueWithNumberFibonacci_Update{
+
+    Assert-SkipTest
+
+    $pn = Get-ProjectNumber 
+    $fieldname =  "TimeTracker"
+
+    $result = Update-FieldValueWithNumberFibonacci $pn $fieldname
+
+    Assert-NotImplemented
+}
+
+function ProjectDemoTest_FieldValueWithNumber_Update{
+
+    Assert-SkipTest
+
+    $pn = Get-ProjectNumber 
+    $fieldname =  "TimeTracker"
+
+    $result = Update-FieldValueWithNumber $pn $fieldname -min 10 -max 500
 
     Assert-NotImplemented
 }
