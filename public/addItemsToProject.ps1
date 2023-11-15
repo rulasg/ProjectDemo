@@ -17,26 +17,27 @@ function Add-ItemsToProject{
 function Add-ItemsToProjectFromARepo{
     [CmdletBinding(SupportsShouldProcess)]
     param(
-        [Parameter()] [string]$Owner,
-        [Parameter(Mandatory)] [string]$ProjectNumber,
-        [Parameter(Mandatory)] [string]$RepoNameWithOwner
+        [Parameter()][string]$Owner,
+        [Parameter(Mandatory)][string]$ProjectNumber,
+        [Parameter(Mandatory)][string]$Repo
     )
 
     $verbose = $VerbosePreference -eq 'Continue'
 
-    $Owner = Get-EnvironmentOwner -Owner $Owner
+    $owner = Get-EnvironmentOwner -Owner $Owner
+    $repoNameWithOwner = "{0}/{1}" -f $owner,$Repo
 
-    "Adding issues from [{0}] to project [{1}] with owner [{2}]" -f $RepoNameWithOwner, $ProjectNumber, $Owner | Write-Verbose
+    "Adding issues from [{0}] to project [{1}] with owner [{2}]" -f $repoNameWithOwner, $ProjectNumber, $Owner | Write-Verbose
 
     # Get all issues
     $command = 'gh issue list -R {repoWithOwner} --json url '
-    $command = $command -replace "{repoWithOwner}", $RepoNameWithOwner
+    $command = $command -replace "{repoWithOwner}", $repoNameWithOwner
 
     $command | Write-Information
     $result = Invoke-Expression $command 
 
     if(-not $result){
-        Write-Error "Error getting issues from [$RepoNameWithOwner]"
+        Write-Error "Error getting issues from [$repoNameWithOwner]"
         return
     }
 

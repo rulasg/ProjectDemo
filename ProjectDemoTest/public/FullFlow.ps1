@@ -3,7 +3,7 @@ function ProjectDemoTest_Full_flow{
     # Avoid test to run agianst GitHub
     # This test is used during development
     
-    Assert-SkipTest 
+    Assert-SkipTest
 
     $name = "testproject"
     $owner = "solidifydemo"

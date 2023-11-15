@@ -2,8 +2,10 @@ function Remove-ReposByTopic{
     [CmdletBinding(SupportsShouldProcess)]
     param(
         [Parameter(Mandatory)] [string]$Topic,
-        [Parameter(Mandatory)] [string]$Owner
+        [Parameter()] [string]$Owner
     )
+
+    $owner = Get-EnvironmentOwner -Owner $Owner
 
     # Delete repo
     "Findings demo repos with Topic [$topic] in [$Owner]" | Write-Verbose
