@@ -21,25 +21,28 @@ SEE ALSO
 
 FULL SET OF FUNCTIONALITY
 
-    1. New-ProjectDemo -name testproject  -Owner solidifydemo
-    2. Get-ProjectDemo -name testproject  -Owner solidifydemo
-    3. Get-Environment -name testproject -Owner solidifydemo
-    4. Get-ProjectNumber -Name testproject -Owner Solidifydemo
-    5. Find-RepoDemo -name testproject -Owner solidifydemo
-    6. Add-IssuesToRepo -Owner solidifydemo -Repo testproject2-repo-back -Amount 5
-    7. Add-ItemsToProject -name testproject  -Owner solidifydemo
-    8. New-RepoDemo -RepoWithOwner solidifydemo/testproject-repo-apendix -RepoTopic $e.RepoTopic -FixedTopic $e.FixedTopic
-    9. Add-ItemsToProjectFromARepo -Owner solidifydemo -ProjectNumber 129 -Repo testproject-repo-apendix
-    10. Update-Update-FieldValueWithSingleSelect -ProjectNumber 116 -FieldName Status
-    11. Add-FieldSingleSelectToProject -ProjectNumber 116 -FieldName "Priority" -Options "🔥Critical,🥵High,😊Normal,🥶Low"
-    12. Add-FieldSingleSelectToProject -ProjectNumber 116 -FieldName "Severity" -Options "Critical⭐️⭐️⭐️⭐️,Important⭐️⭐️⭐️,Needed⭐️⭐️,Nice⭐️" 
-    13. Add-TimeTrackerToProject -owner solidifydemo -ProjectNumber 116
-    14. Remove-ProjectDemo -name testproject -Owner solidifydemo
+    1. New-ProjectDemo
+    2. Get-ProjectDemo
+    3. Get-Environment
+    4. Get-ProjectNumber
+    5. Find-RepoDemo
+    6. Add-IssuesToRepo
+    7. Add-ItemsToProject
+    8. New-RepoDemo
+    9. Add-ItemsToProjectFromARepo
+    10. Update-Update-FieldValueSingleSelectToProjec
+    11. Add-FieldSingleSelectToProject
+    12. Add-FieldSingleSelectToProject
+    13. Add-TimeTrackerToProject
+    14. Remove-ProjectDemo
     15. Find-ProjectDemo
+    16. Open-ProjectDemo
 
 FULL DEMO FLOW
 
     - New-ProjectDemo -name testproject  -Owner solidifydemo
+
+    - Open-ProjectDemo -name testproject  -Owner solidifydemo
 
     - Get-ProjectDemo -name testproject  -Owner solidifydemo
     - Get-ProjectNumber -Name testproject -Owner Solidifydemo
