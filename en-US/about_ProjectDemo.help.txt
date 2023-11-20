@@ -33,7 +33,7 @@ FULL SET OF FUNCTIONALITY
     10. Update-Update-FieldValueSingleSelectToProjec
     11. Add-FieldSingleSelectToProject
     12. Add-FieldSingleSelectToProject
-    13. Add-TimeTrackerToProject
+    13. Add-TimeTrackerFieldToProject
     14. Remove-ProjectDemo
     15. Find-ProjectDemo
     16. Open-ProjectDemo
@@ -51,10 +51,14 @@ FULL DEMO FLOW
     
     - Update-FieldValueWithSingleSelect -ProjectNumber 116 -FieldName Status
     
-    - Add-FieldSingleSelectToProject -ProjectNumber 116 -FieldName "Priority" -Options "🔥Critical,🥵High,😊Normal,🥶Low"
-    - Add-FieldSingleSelectToProject -ProjectNumber 116 -FieldName "Severity" -Options "Critical⭐️⭐️⭐️⭐️,Important⭐️⭐️⭐️,Needed⭐️⭐️,Nice⭐️" 
-    - Add-TimeTrackerToProject -owner solidifydemo -ProjectNumber 116
+    - Add-CommentFieldToProject -owner solidifydemo -ProjectNumber 116
+
+    - Add-PriorityFieldToProject -owner solidifydemo -ProjectNumber 116
+    - Add-SeverityFieldToProject -owner solidifydemo -ProjectNumber 116
     
+    - Add-TimeTrackerFieldToProject -owner solidifydemo -ProjectNumber 116
+    - Add-StoryPointsFieldToProject -owner solidifydemo -ProjectNumber 116
+
     - Find-ProjectDemo --owner solidifyDemo
     - Remove-ProjectDemo -name testproject -Owner solidifydemo
 
@@ -170,10 +174,8 @@ FULL DEMO FLOW
     It may be useful to add issues from a different repo to the demo project.
     Use Add-ItemsToProjectFromARepo to add issues from a different repo to the demo project.
 
-    > Get-ProjectNumber -Name testproject -Owner Solidifydemo
-    93
-
-    > Add-ItemsToProjectFromARepo -Owner solidifydemo -ProjectNumber 129 -Repo testproject-repo-apendix
+    > $pn = Get-ProjectNumber -Name testproject -Owner Solidifydemo
+    > Add-ItemsToProjectFromARepo -Owner solidifydemo -ProjectNumber $pn -Repo testproject-repo-apendix
     .....
 
 10. SHUFFLE STATUS VALUE ON ISSUES
@@ -215,16 +217,13 @@ FULL DEMO FLOW
 
     Or directly use Add-SeverityFieldToProject to add the field and set a random value.
 
-13. ADD TIMETRACKER FIELD IN PROJECT
+13. ADD NUMBER FIELDS LIKE TIMETRACKER FIELD IN PROJECT
 
-    To show the Field SUM feature you need a field type numeric with values. 
-    Use Add-TimeTrackerToProject to add a field to the project and add a random value the items in the project.
-    This command requires the ProjectNumber.
+    To show the Field SUM feature you need a field type numeric with values.
+    Use Add-FieldNumber to add a field to the project and use Update-FieldValueWithNumber to add a random value the items in the project.
+    Or use Add-TimeTrackerFieldToProject to it TimeTracker directly with -update flag to add random values to the items.
 
-    > Get-ProjectNumber -Name testproject -Owner Solidifydemo
-    93
-
-    > Add-TimeTrackerToProject -owner solidifydemo -ProjectNumber 128
+    > Add-TimeTrackerFieldToProject -owner solidifydemo -ProjectNumber 116 -Update
     Created field
     .....................
 

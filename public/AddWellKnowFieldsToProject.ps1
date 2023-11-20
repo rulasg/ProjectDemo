@@ -106,7 +106,7 @@ function Add-WellknonFieldsToProject{
     param(
         [Parameter(Mandatory,Position=0)] [string]$ProjectNumber,
         [Parameter()][switch]$Update,
-        [Parameter()] [string]$Owner
+        [Parameter()][string]$Owner
     )
 
     $owner = Get-EnvironmentOwner -Owner $Owner
