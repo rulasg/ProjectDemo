@@ -40,27 +40,32 @@ FULL SET OF FUNCTIONALITY
 
 FULL DEMO FLOW
 
-    - New-ProjectDemo -name testproject  -Owner solidifydemo
+    $name = "testproject"
+    $owner = "solidifydemo"
 
-    - Open-ProjectDemo -name testproject  -Owner solidifydemo
+    New-ProjectDemo    -Owner $owner -Name $name
 
-    - Get-ProjectDemo -name testproject  -Owner solidifydemo
-    - Get-ProjectNumber -Name testproject -Owner Solidifydemo
+    Open-ProjectDemo   -Owner $owner -Name $name
 
-    - Add-ItemsToProject -name testproject  -Owner solidifydemo
+    Get-ProjectDemo    -Owner $owner -Name $name
+    Get-ProjectNumber  -Owner $owner -Name $nam
+
+    Add-ItemsToProject -Owner $owner -Name $name
+
+    $projectNumber = Get-ProjectNumber -Name $name -Owner $owner
     
-    - Update-FieldValueWithSingleSelect -ProjectNumber 116 -FieldName Status
+    Update-FieldValueWithSingleSelect -Owner $owner -ProjectNumber $projectNumber -FieldName Status
     
-    - Add-CommentFieldToProject -owner solidifydemo -ProjectNumber 116
+    Add-CommentFieldToProject -owner $owner -ProjectNumber $projectNumber -Update
 
-    - Add-PriorityFieldToProject -owner solidifydemo -ProjectNumber 116
-    - Add-SeverityFieldToProject -owner solidifydemo -ProjectNumber 116
+    Add-PriorityFieldToProject -owner $owner -ProjectNumber $projectNumber -Update
+    Add-SeverityFieldToProject -owner $owner -ProjectNumber $projectNumber -Update
     
-    - Add-TimeTrackerFieldToProject -owner solidifydemo -ProjectNumber 116
-    - Add-StoryPointsFieldToProject -owner solidifydemo -ProjectNumber 116
+    Add-TimeTrackerFieldToProject -owner $owner -ProjectNumber $projectNumber -Update
+    Add-StoryPointsFieldToProject -owner $owner -ProjectNumber $projectNumber -Update
 
-    - Find-ProjectDemo --owner solidifyDemo
-    - Remove-ProjectDemo -name testproject -Owner solidifydemo
+    Find-ProjectDemo -Owner $owner
+    Remove-ProjectDemo -Name $name -Owner $owner
 
 1. CREATE A PROJECT FOR DEMO
 
@@ -270,4 +275,3 @@ FULL DEMO FLOW
     Removed project [113] in [SolidifyDemo]
     Deleted repo [SolidifyDemo/testproject-repo-back]
     Deleted repo [SolidifyDemo/testproject-repo-front]
-
