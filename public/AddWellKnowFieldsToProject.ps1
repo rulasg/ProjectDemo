@@ -40,6 +40,27 @@ function Add-SeverityFieldToProject{
 
 } Export-ModuleMember -Function Add-SeverityFieldToProject
 
+function Add-SizeFieldToProject{
+    [CmdletBinding(SupportsShouldProcess)]
+    param(
+        [Parameter(Mandatory,Position=0)] [string]$ProjectNumber,
+        [Parameter()][switch]$Update,
+        [Parameter()] [string]$Owner
+    )
+
+    $owner = Get-EnvironmentOwner -Owner $Owner
+
+    $fieldName = "Severity"
+    $options= "S, M, L, XL" 
+
+    Add-FieldSingleSelectToProject -ProjectNumber $ProjectNumber -Owner $Owner -FieldName $fieldName -Options $options
+
+    if($Update){
+        Update-FieldValueWithSingleSelect -ProjectNumber $ProjectNumber -FieldName $fieldName -Owner $Owner
+    }
+
+} Export-ModuleMember -Function Add-SizeFieldToProject
+
 function Add-CommentFieldToProject{
     [CmdletBinding(SupportsShouldProcess)]
     param(
