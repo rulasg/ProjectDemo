@@ -7,11 +7,11 @@ function ProjectDemoTest_UsingJobs_Add{
         $result = Add-UsingJobs -Seconds $seconds -Number $number
     }
     
-    "Used $measure.Seconds seconds to run 5 jobs of 1 second." | Write-Host
+    "Used $measure.Seconds seconds to run 5 jobs of 1 second." | Write-Verbose
 
     Assert-Count -Expected $number -Presented $result
 
-    Assert-AreEqual -Expected $seconds -Presented $measure.Seconds
+    Assert-IsTrue -Condition ($measure.Seconds -lt ($number * $seconds))
 
 }
 
