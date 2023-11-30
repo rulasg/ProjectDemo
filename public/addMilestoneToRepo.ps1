@@ -5,7 +5,7 @@ function Add-MilestoneToRepo{
         [Parameter(Mandatory)] [string]$Title,
         [Parameter()] [string]$Owner,
         [Parameter()] [string]$Description,
-        [Parameter()] [string]$Date
+        [Parameter()] [DateTime]$Date
     )
 
     $owner = Get-EnvironmentOwner -Owner $Owner
@@ -23,20 +23,11 @@ function Add-MilestoneToRepo{
     }
 
     if ($Date) {
-        
-        $date | Write-Verbose
-        $datedate = Get-Date -Date $Date -ErrorAction SilentlyContinue
-        $datedate | Write-Verbose
 
-        if ($datedate) {
-            # Format date
-            $justDate = $datedate.Date
-            $dateString = Get-Date -Date $justDate -UFormat "%Y-%m-%dT%H:%M:%SZ"
-            $command = $command + ' -f due_on="{date}"'
-            $command = $command -replace "{date}", $dateString
-        } else {
-            Write-Error "Invalid date format. Please provide a valid date string."
-        }
+        # Format date
+        $dateString = $Date.Date | ConvertTo-Json
+        $command = $command + ' -f due_on="{date}"'
+        $command = $command -replace "{date}", $dateString
     }
 
     $command | Write-Verbose
