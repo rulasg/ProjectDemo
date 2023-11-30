@@ -163,12 +163,12 @@ function Add-UsingJobs{
     [CmdletBinding()]
     param(
         [Parameter(Mandatory,Position=0)] [int]$Seconds,
-        [Parameter(Mandatory,Position=1)] [string]$number
+        [Parameter(Mandatory,Position=1)] [string]$Number
     )
 
     $jobs = @()
 
-    1..$number | ForEach-Object{
+    1..$Number | ForEach-Object{
         $jobs += Start-Job -ScriptBlock {
             $id = $args[0]
             $seconds = $args[1]
