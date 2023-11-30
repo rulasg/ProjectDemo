@@ -17,6 +17,6 @@ function Set-ProjectDemo{
     
     Update-FieldValueWithSingleSelect    -ProjectNumber $projectNumber -owner $owner -FieldName "Status"
 
-    Add-WellknonFieldsToProject            -ProjectNumber $projectNumber -owner $owner
+    Add-WellknownFieldsToProject            -ProjectNumber $projectNumber -owner $owner
 
 } Export-ModuleMember -Function Set-ProjectDemo

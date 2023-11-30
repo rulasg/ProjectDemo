@@ -101,7 +101,7 @@ function Add-StoryPointsFieldToProject{
 
 } Export-ModuleMember -Function Add-StoryPointsFieldToProject
 
-function Add-WellknonFieldsToProject{
+function Add-StatusFieldToProject{
     [CmdletBinding(SupportsShouldProcess)]
     param(
         [Parameter(Mandatory,Position=0)] [string]$ProjectNumber,
@@ -111,10 +111,75 @@ function Add-WellknonFieldsToProject{
 
     $owner = Get-EnvironmentOwner -Owner $Owner
 
-    Add-PriorityFieldToProject    -ProjectNumber $ProjectNumber -Owner $Owner -Update:$Update
-    Add-SeverityFieldToProject    -ProjectNumber $ProjectNumber -Owner $Owner -Update:$Update
-    Add-CommentFieldToProject     -ProjectNumber $ProjectNumber -Owner $Owner -Update:$Update
-    Add-TimeTrackerFieldToProject -ProjectNumber $ProjectNumber -Owner $Owner -Update:$Update
-    Add-StoryPointsFieldToProject -ProjectNumber $ProjectNumber -Owner $Owner -Update:$Update
+    "Skipping the creation of Status to project $ProjectNumber" | Write-Host
 
-} Export-ModuleMember -Function Add-WellknonFieldsToProject
+    if($Update){
+        Update-FieldValueWithSingleSelect -ProjectNumber $ProjectNumber -FieldName "Status" -Owner $Owner
+    }
+
+} Export-ModuleMember -Function Add-StatusFieldToProject
+
+function Add-WellknownFieldsToProject{
+    [CmdletBinding(SupportsShouldProcess)]
+    param(
+        [Parameter(Mandatory,Position=0)] [string]$ProjectNumber,
+        [Parameter()][switch]$Update,
+        [Parameter()][string]$Owner
+    )
+
+    $owner = Get-EnvironmentOwner -Owner $Owner
+
+    if($Update){
+        $updateParam = " -Update"
+    }
+
+    $jobs = @()
+
+      $jobs += Start-JobInternal -Command $("Add-StatusFieldToProject      -ProjectNumber $ProjectNumber -Owner $owner" + $updateParam) -LoadModule
+      $jobs += Start-JobInternal -Command $("Add-SizeFieldToProject        -ProjectNumber $ProjectNumber -Owner $owner" + $updateParam) -LoadModule
+      $jobs += Start-JobInternal -Command $("Add-PriorityFieldToProject    -ProjectNumber $ProjectNumber -Owner $owner" + $updateParam) -LoadModule
+      $jobs += Start-JobInternal -Command $("Add-SeverityFieldToProject    -ProjectNumber $ProjectNumber -Owner $owner" + $updateParam) -LoadModule
+      $jobs += Start-JobInternal -Command $("Add-CommentFieldToProject     -ProjectNumber $ProjectNumber -Owner $owner" + $updateParam) -LoadModule
+      $jobs += Start-JobInternal -Command $("Add-TimeTrackerFieldToProject -ProjectNumber $ProjectNumber -Owner $owner" + $updateParam) -LoadModule
+      $jobs += Start-JobInternal -Command $("Add-StoryPointsFieldToProject -ProjectNumber $ProjectNumber -Owner $owner" + $updateParam) -LoadModule
+
+
+    $waitings = Wait-Job -Job $jobs
+
+    $waitings | Receive-Job | Write-Output
+    
+    # $waitings | ForEach-Object {
+    #     $result = Receive-Job -Job $_
+    #     $result | Write-MyVerbose
+
+    #     Write-Output -InputObject $result
+    # }
+
+    Write-MyVerbose "All jobs are done" -NewLine
+
+} Export-ModuleMember -Function Add-WellknownFieldsToProject
+
+function Add-UsingJobs{
+    [CmdletBinding()]
+    param(
+        [Parameter(Mandatory,Position=0)] [int]$Seconds,
+        [Parameter(Mandatory,Position=1)] [string]$Number
+    )
+
+    $jobs = @()
+
+    1..$Number | ForEach-Object{
+        $jobs += Start-Job -ScriptBlock {
+            $id = $args[0]
+            $seconds = $args[1]
+            Start-Sleep -Seconds $seconds; "Job $id slept $seconds seconds" | Write-Output
+        } -ArgumentList $_,$Seconds
+    }
+
+    $waitings = Wait-Job -Job $jobs
+    $waitings | ForEach-Object {
+        Receive-Job -Job $_
+    }
+
+} Export-ModuleMember -Function Add-UsingJobs
+
