@@ -53,8 +53,5 @@ function Add-WellknownLabelsToRepos{
 
         Add-LabelToRepo -Owner $Owner -Repo $Repo -Name $_.name -Description $_.description -Color $_.color
     }
-    
-
-    Add-LabelToRepo -Owner $Owner -Repo $Repo -N
 
 } Export-ModuleMember -Function Add-WellknownLabelsToRepos
