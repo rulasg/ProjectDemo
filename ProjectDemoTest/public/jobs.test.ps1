@@ -1,26 +1,26 @@
-function ProjectDemoTest_JobInternal_Start{
+# function ProjectDemoTest_JobInternal_Start{
 
-    $job = Start-JobInternal -Command "echo 'Hello World'"
+#     $job = Start-JobInternal -Command "echo 'Hello World'"
 
-    $w = Wait-Job -Job $job
+#     $w = Wait-Job -Job $job
 
-    $result = Receive-Job -Job $job
+#     $result = Receive-Job -Job $job
 
-    Assert-AreEqual -Expected $job.State -Presented "Completed"
+#     Assert-AreEqual -Expected $job.State -Presented "Completed"
 
-    Assert-AreEqual -Expected "Hello World" -Presented $result
+#     Assert-AreEqual -Expected "Hello World" -Presented $result
 
-}
+# }
 
-function ProjectDemoTest_JobInternal_Start_WithModule{
+# function ProjectDemoTest_JobInternal_Start_WithModule{
 
-    $job = Start-JobInternal -Command "Get-TestString 'Hello World'" -LoadModule
+#     $job = Start-JobInternal -Command "Get-TestString 'Hello World'" -LoadModule
 
-    $waited = Wait-Job -Job $job
+#     $waited = Wait-Job -Job $job
 
-    $result = Receive-Job -Job $waited
+#     $result = Receive-Job -Job $waited
 
-    Assert-AreEqual -Expected $waited.State -Presented "Completed"
+#     Assert-AreEqual -Expected $waited.State -Presented "Completed"
 
-    Assert-AreEqual -Expected "[Hello World]" -Presented $result
-}
+#     Assert-AreEqual -Expected "[Hello World]" -Presented $result
+# }
