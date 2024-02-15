@@ -8,7 +8,7 @@ function Get-ProjectItems{
     $Owner = Get-EnvironmentOwner -Owner $Owner
 
     ## populate field to the project items
-    $command = 'gh project item-list {projectnumber} --owner {owner} --format json'
+    $command = 'gh project item-list {projectnumber} --owner {owner} --format json -L 1000'
     $command = $command -replace "{projectnumber}", $ProjectNumber
     $command = $command -replace "{owner}", $Owner
     $command | Write-Verbose

@@ -91,7 +91,7 @@ function Add-TimeTrackerFieldToProject{
 
     $owner = Get-EnvironmentOwner -Owner $Owner
 
-    $fieldname = "TimeTraker"
+    $fieldname = "TimeTracker"
 
     Add-FieldNumber -ProjectNumber $ProjectNumber -FieldName $fieldname -Owner $Owner
 

@@ -4,22 +4,22 @@ function Edit-ItemField{
         [Parameter(Mandatory,Position=0)][string]$ProjectId,
         [Parameter(Mandatory,Position=1)][string]$FieldId,
         [Parameter(Mandatory,Position=2)][string]$ItemId,
-        [Parameter()][Int32]$Number,
+        [Parameter()][string]$Number,
         [Parameter()][string]$Text,
         [Parameter()][string]$OptionId
     )
 
     $command = 'gh project item-edit --id {itemid} --field-id {fieldid} --project-id {projectid}'
     
-    if($Number){
+    if(-not [string]::IsNullOrWhiteSpace($Number)){
         $command = $command + " --number $number "
     }
 
-    if($Text){
+    if(-not [string]::IsNullOrWhiteSpace($Text)){
         $command = $command + " --text $text "
     }
 
-    if($OptionId){
+    if(-not [string]::IsNullOrWhiteSpace($OptionId)){
         $command = $command + " --single-select-option-id $OptionId "
     }
 
