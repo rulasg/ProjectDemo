@@ -16,7 +16,7 @@ function Edit-ItemField{
     }
 
     if(-not [string]::IsNullOrWhiteSpace($Text)){
-        $command = $command + " --text $text "
+        $command = $command + ' --text "$text"'
     }
 
     if(-not [string]::IsNullOrWhiteSpace($OptionId)){
