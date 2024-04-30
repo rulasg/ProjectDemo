@@ -140,7 +140,27 @@ function Add-StatusFieldToProject{
 
 } Export-ModuleMember -Function Add-StatusFieldToProject
 
-function Add-WellknownFieldsToProject{
+function Add-NextDateFieldToProject{
+    [CmdletBinding(SupportsShouldProcess)]
+    param(
+        [Parameter(Mandatory,Position=0)] [string]$ProjectNumber,
+        [Parameter()][switch]$Update,
+        [Parameter()][string]$Owner
+    )
+
+    $owner = Get-EnvironmentOwner -Owner $Owner
+
+    $fieldname = "NextActionDate"
+
+    Add-FieldDate -ProjectNumber $ProjectNumber -FieldName $fieldname -Owner $Owner
+
+    if($Update){
+        Update-FieldValueWithDate -ProjectNumber $ProjectNumber -FieldName $fieldname -Owner $Owner
+    }
+
+} Export-ModuleMember -Function Add-NextDateFieldToProject
+
+function Add-NextDateFieldToProject{
     [CmdletBinding(SupportsShouldProcess)]
     param(
         [Parameter(Mandatory,Position=0)] [string]$ProjectNumber,
@@ -156,14 +176,14 @@ function Add-WellknownFieldsToProject{
 
     $jobs = @()
 
-      $jobs += Start-JobInternal -Command $("Add-StatusFieldToProject      -ProjectNumber $ProjectNumber -Owner $owner" + $updateParam) -LoadModule
-      $jobs += Start-JobInternal -Command $("Add-SizeFieldToProject        -ProjectNumber $ProjectNumber -Owner $owner" + $updateParam) -LoadModule
-      $jobs += Start-JobInternal -Command $("Add-PriorityFieldToProject    -ProjectNumber $ProjectNumber -Owner $owner" + $updateParam) -LoadModule
-      $jobs += Start-JobInternal -Command $("Add-SeverityFieldToProject    -ProjectNumber $ProjectNumber -Owner $owner" + $updateParam) -LoadModule
-      $jobs += Start-JobInternal -Command $("Add-CommentFieldToProject     -ProjectNumber $ProjectNumber -Owner $owner" + $updateParam) -LoadModule
-      $jobs += Start-JobInternal -Command $("Add-TimeTrackerFieldToProject -ProjectNumber $ProjectNumber -Owner $owner" + $updateParam) -LoadModule
-      $jobs += Start-JobInternal -Command $("Add-StoryPointsFieldToProject -ProjectNumber $ProjectNumber -Owner $owner" + $updateParam) -LoadModule
-
+        $jobs += Start-JobInternal -Command $("Add-StatusFieldToProject      -ProjectNumber $ProjectNumber -Owner $owner" + $updateParam) -LoadModule
+        $jobs += Start-JobInternal -Command $("Add-SizeFieldToProject        -ProjectNumber $ProjectNumber -Owner $owner" + $updateParam) -LoadModule
+        $jobs += Start-JobInternal -Command $("Add-PriorityFieldToProject    -ProjectNumber $ProjectNumber -Owner $owner" + $updateParam) -LoadModule
+        $jobs += Start-JobInternal -Command $("Add-SeverityFieldToProject    -ProjectNumber $ProjectNumber -Owner $owner" + $updateParam) -LoadModule
+        $jobs += Start-JobInternal -Command $("Add-CommentFieldToProject     -ProjectNumber $ProjectNumber -Owner $owner" + $updateParam) -LoadModule
+        $jobs += Start-JobInternal -Command $("Add-TimeTrackerFieldToProject -ProjectNumber $ProjectNumber -Owner $owner" + $updateParam) -LoadModule
+        $jobs += Start-JobInternal -Command $("Add-StoryPointsFieldToProject -ProjectNumber $ProjectNumber -Owner $owner" + $updateParam) -LoadModule
+        $jobs += Start-JobInternal -Command $("Add-NextDateFieldToProject    -ProjectNumber $ProjectNumber -Owner $owner" + $updateParam) -LoadModule
 
     $waitings = Wait-Job -Job $jobs
 

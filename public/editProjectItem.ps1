@@ -6,6 +6,7 @@ function Edit-ItemField{
         [Parameter(Mandatory,Position=2)][string]$ItemId,
         [Parameter()][string]$Number,
         [Parameter()][string]$Text,
+        [Parameter()][string]$Date,
         [Parameter()][string]$OptionId
     )
 
@@ -21,6 +22,10 @@ function Edit-ItemField{
 
     if(-not [string]::IsNullOrWhiteSpace($OptionId)){
         $command = $command + " --single-select-option-id $OptionId "
+    }
+
+    if(-not [string]::IsNullOrWhiteSpace($Date)){
+        $command = $command + ' --date "$Date" '
     }
 
     $command = $command -replace "{itemid}", $itemId

@@ -143,3 +143,36 @@ function Update-FieldValueWithText{
 
     "End shuffling field values" | Write-MyVerbose -NewLine
 } Export-ModuleMember -Function Update-FieldValueWithText
+
+function Update-FieldValueWithDate{
+    [CmdletBinding(SupportsShouldProcess)]
+    param(
+        [Parameter(Mandatory,Position=0,ValueFromPipeline)][string]$ProjectNumber,
+        [Parameter(Mandatory,Position=1)][string]$FieldName,
+        [Parameter()][string]$Owner
+    )
+
+    $Owner = Get-EnvironmentOwner -Owner $Owner
+
+    $projectId = Get-ProjectId $ProjectNumber            -Owner $Owner
+    $fieldId = Get-FieldId     $ProjectNumber $FieldName -Owner $Owner 
+    $items = Get-ProjectItems  $ProjectNumber            -Owner $Owner
+
+    "Found [{0}] items to edit" -f $items.Count | Write-Verbose
+
+    $today = Get-Date
+
+    foreach($item in $items){
+        $offset = Get-Random -Minimum -10 -Maximum 30
+        $date = $today.AddDays($offset)
+
+        $datestr = $date.ToString("yyyy-MM-dd")
+
+        $result = Edit-ItemField $projectId $fieldId $item.Id -Date $datestr
+
+        $result
+    }
+
+    "End shuffling field values" | Write-MyVerbose -NewLine
+
+} Export-ModuleMember -Function Update-FieldValueWithDate
