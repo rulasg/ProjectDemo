@@ -30,10 +30,11 @@ FULL SET OF FUNCTIONALITY
     7. Add-ItemsToProject
     8. New-RepoDemo
     9. Add-ItemsToProjectFromARepo
-    10. Update-Update-FieldValueSingleSelectToProjec
+    10. Update-FieldValueSingleSelectToProject
     11. Add-FieldSingleSelectToProject
     12. Add-FieldSingleSelectToProject
     13. Add-TimeTrackerFieldToProject
+    14. Add-NextDateFieldToProject
     14. Remove-ProjectDemo
     15. Find-ProjectDemo
     16. Open-ProjectDemo
@@ -63,6 +64,8 @@ FULL DEMO FLOW
     
     Add-TimeTrackerFieldToProject -owner $owner -ProjectNumber $projectNumber -Update
     Add-StoryPointsFieldToProject -owner $owner -ProjectNumber $projectNumber -Update
+
+    Add-NextDateFieldToProject -owner $owner -ProjectNumber $projectNumber -Update
 
     Find-ProjectDemo -Owner $owner
     Remove-ProjectDemo -Name $name -Owner $owner
