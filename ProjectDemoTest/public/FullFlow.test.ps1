@@ -6,20 +6,20 @@ function ProjectDemoTest_Full_flow{
     Assert-SkipTest
 
     $name = "testproject"
-    $owner = "solidifydemo"
+    $owner = "octodemo"
 
     # New Project
     $resultNewProjectDemo = New-ProjectDemo -Name $name  -Owner $owner
 
     $projectUrl = $resultNewProjectDemo | where-object {$_ -match "/projects/"}
 
-    Assert-Contains -Presented $resultNewProjectDemo -Expected "https://github.com/SolidifyDemo/testproject-repo-front"
-    Assert-Contains -Presented $resultNewProjectDemo -Expected "https://github.com/SolidifyDemo/testproject-repo-back"
+    Assert-Contains -Presented $resultNewProjectDemo -Expected "https://github.com/OctoDemo/testproject-repo-front"
+    Assert-Contains -Presented $resultNewProjectDemo -Expected "https://github.com/OctoDemo/testproject-repo-back"
 
     # Get project number
     $resultGetProjectNumber = Get-ProjectNumber -Name $name -Owner $owner
 
-    $projectUrl = "https://github.com/orgs/SolidifyDemo/projects/" + $resultGetProjectNumber
+    $projectUrl = "https://github.com/orgs/OctoDemo/projects/" + $resultGetProjectNumber
     Assert-Contains -Presented $resultNewProjectDemo -Expected $projectUrl
 
     # Test Project
@@ -30,13 +30,13 @@ function ProjectDemoTest_Full_flow{
     $resultEnv = Get-Environment -name $name -Owner $owner
 
     Assert-AreEqual -Presented $resultEnv.Name               -Expected  "testproject"
-    Assert-AreEqual -Presented $resultEnv.Owner              -Expected  "solidifydemo"
-    Assert-AreEqual -Presented $resultEnv.DefaultOwner       -Expected  "SolidifyDemo"
+    Assert-AreEqual -Presented $resultEnv.Owner              -Expected  "octodemo"
+    Assert-AreEqual -Presented $resultEnv.DefaultOwner       -Expected  "OctoDemo"
     Assert-AreEqual -Presented $resultEnv.RepoTopic              -Expected  "projectdemo-testproject"
     Assert-AreEqual -Presented $resultEnv.RepoFront          -Expected  "testproject-repo-front"
     Assert-AreEqual -Presented $resultEnv.RepoBack           -Expected  "testproject-repo-back"
-    Assert-AreEqual -Presented $resultEnv.RepoFrontWithOwner -Expected  "solidifydemo/testproject-repo-front"
-    Assert-AreEqual -Presented $resultEnv.RepoBackWithOwner  -Expected  "solidifydemo/testproject-repo-back"
+    Assert-AreEqual -Presented $resultEnv.RepoFrontWithOwner -Expected  "octodemo/testproject-repo-front"
+    Assert-AreEqual -Presented $resultEnv.RepoBackWithOwner  -Expected  "octodemo/testproject-repo-back"
     Assert-AreEqual -Presented $resultEnv.IssuesAmount       -Expected  "5"
 
     # Find projectdemo

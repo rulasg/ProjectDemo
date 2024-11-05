@@ -1,6 +1,6 @@
 
 $DEFAULT_NAME = "ProjectDemoTest"
-$DEFAULT_OWNER = "SolidifyDemo"
+$DEFAULT_OWNER = "OctoDemo"
 $DEFAULT_LIMIT = 1000
 $DEFAULT_ISSUES_AMOUNT = 5
 $DEFAULT_USER = "anonymouse"

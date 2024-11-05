@@ -42,7 +42,7 @@ FULL SET OF FUNCTIONALITY
 FULL DEMO FLOW
 
     $name = "testproject"
-    $owner = "solidifydemo"
+    $owner = "octodemo"
 
     New-ProjectDemo    -Owner $owner -Name $name
 
@@ -75,10 +75,10 @@ FULL DEMO FLOW
     If you want to demo GitHub Projects you need a fre repos with issues and a project that will be used to manage the issues.
     Use New-ProjectDemo to create a project, 2 repos and issues.
 
-    > New-ProjectDemo -name testproject  -Owner solidifydemo
-    https://github.com/orgs/SolidifyDemo/projects/120
-    https://github.com/SolidifyDemo/testproject-repo-front
-    https://github.com/SolidifyDemo/testproject-repo-back
+    > New-ProjectDemo -name testproject  -Owner octodemo
+    https://github.com/orgs/OctoDemo/projects/120
+    https://github.com/OctoDemo/testproject-repo-front
+    https://github.com/OctoDemo/testproject-repo-back
     .....
     .....
     ..........
@@ -87,28 +87,28 @@ FULL DEMO FLOW
 
     You can use Get-ProjectDemo to confirm that the demo has been created properly.
 
-    > Get-ProjectDemo -name testproject  -Owner solidifydemo
+    > Get-ProjectDemo -name testproject  -Owner octodemo
 
     ProjectDemo     Item  Name                            Test
     -----------     ----  ----                            ----
-    testproject Repo1 SolidifyDemo/testproject-repo-front True
-    testproject Repo2 SolidifyDemo/testproject-repo-back  True
+    testproject Repo1 OctoDemo/testproject-repo-front True
+    testproject Repo2 OctoDemo/testproject-repo-back  True
     testproject Proj… testproject                         True
 
 3. DEFAULT PROJECTDEMO ENVIRONMENT VALUES
 
     To build the demo we use standard values for the repos and issues. You can use Get-Environment to get the values.
 
-    > Get-Environment -name testproject -Owner solidifydemo
+    > Get-Environment -name testproject -Owner octodemo
 
     Name               : testproject
-    Owner              : solidifydemo
-    DefaultOwner       : SolidifyDemo
+    Owner              : octodemo
+    DefaultOwner       : OctoDemo
     Topic              : projectdemo-testproject
     RepoFront          : testproject-repo-front
     RepoBack           : testproject-repo-back
-    RepoFrontWithOwner : solidifydemo/testproject-repo-front
-    RepoBackWithOwner  : solidifydemo/testproject-repo-back
+    RepoFrontWithOwner : octodemo/testproject-repo-front
+    RepoBackWithOwner  : octodemo/testproject-repo-back
     IssuesAmount       : 5
 
 
@@ -116,7 +116,7 @@ FULL DEMO FLOW
 
     For some gh commands the project number is used to identify the project. You can use Get-ProjectNumber to get the project number.
 
-    > Get-ProjectNumber -Name testproject -Owner Solidifydemo
+    > Get-ProjectNumber -Name testproject -Owner Octodemo
     87
 
 5. FIND PROJECTDEMO REPOS
@@ -124,23 +124,23 @@ FULL DEMO FLOW
     ProjectDemo uses topics to scope the repos that belongs to a demo.
     Find-RepoDemoAll finds all repos that belong to any demo using the default topic "projectdemo"
 
-    > gh repo list solidifydemo --topic projectdemo
+    > gh repo list octodemo --topic projectdemo
 
-    Showing 4 of 4 repositories in @SolidifyDemo that match your search
+    Showing 4 of 4 repositories in @OctoDemo that match your search
 
-    SolidifyDemo/testproject2-repo-back   Repo part of Project Demo  public  0m
-    SolidifyDemo/testproject2-repo-front  Repo part of Project Demo  public  0m
-    SolidifyDemo/testproject-repo-back    Repo part of Project Demo  public  5m
-    SolidifyDemo/testproject-repo-front   Repo part of Project Demo  public  5m
+    OctoDemo/testproject2-repo-back   Repo part of Project Demo  public  0m
+    OctoDemo/testproject2-repo-front  Repo part of Project Demo  public  0m
+    OctoDemo/testproject-repo-back    Repo part of Project Demo  public  5m
+    OctoDemo/testproject-repo-front   Repo part of Project Demo  public  5m
 
     To find the repos of a particular demo use the topic Topic = "projectdemo-" + $Name
 
-    > gh repo list solidifydemo --topic projectdemo-testproject2
+    > gh repo list octodemo --topic projectdemo-testproject2
 
-    Showing 2 of 2 repositories in @SolidifyDemo that match your search
+    Showing 2 of 2 repositories in @OctoDemo that match your search
 
-    SolidifyDemo/testproject2-repo-back   Repo part of Project Demo  public  2m
-    SolidifyDemo/testproject2-repo-front  Repo part of Project Demo  public  2m
+    OctoDemo/testproject2-repo-back   Repo part of Project Demo  public  2m
+    OctoDemo/testproject2-repo-front  Repo part of Project Demo  public  2m
 
 6. ADD MORE ISSUES TO REPO
 
@@ -148,12 +148,12 @@ FULL DEMO FLOW
     Is possible that to make a better demo you need more issued on the demo repos.
     Use Add-IssuesToRepo to add mode issues to a repo.
 
-    > Add-IssuesToRepo -Owner solidifydemo -Repo testproject2-repo-back -Amount 5
-    1. Creating Issue e97444a6 for repo [solidifydemo/testproject2-repo-back]
-    2. Creating Issue ae0c3bfb for repo [solidifydemo/testproject2-repo-back]
-    3. Creating Issue 92a7ce82 for repo [solidifydemo/testproject2-repo-back]
-    4. Creating Issue 77850d3c for repo [solidifydemo/testproject2-repo-back]
-    5. Creating Issue 3a262c6e for repo [solidifydemo/testproject2-repo-back]
+    > Add-IssuesToRepo -Owner octodemo -Repo testproject2-repo-back -Amount 5
+    1. Creating Issue e97444a6 for repo [octodemo/testproject2-repo-back]
+    2. Creating Issue ae0c3bfb for repo [octodemo/testproject2-repo-back]
+    3. Creating Issue 92a7ce82 for repo [octodemo/testproject2-repo-back]
+    4. Creating Issue 77850d3c for repo [octodemo/testproject2-repo-back]
+    5. Creating Issue 3a262c6e for repo [octodemo/testproject2-repo-back]
 
 7. ADD ALL DEMO REPOS ISSUES TO DEMO PROJECT
 
@@ -169,12 +169,12 @@ FULL DEMO FLOW
     If you need an extra repo to show a 3 repo project planning follow this steps.
     Use the environments topics to link the repo to the demo for later removal.
 
-    > $e = Get-Environment -Name testproject -Owner solidifydemo
+    > $e = Get-Environment -Name testproject -Owner octodemo
 
-    > New-RepoDemo -Name testproject -Owner solidifydemo testproject-repo-apendix 
-    https://github.com/SolidifyDemo/testproject-repo-apendix
+    > New-RepoDemo -Name testproject -Owner octodemo testproject-repo-apendix 
+    https://github.com/OctoDemo/testproject-repo-apendix
 
-    > Add-IssuesToRepo -Owner SolidifyDemo -Repo testproject-repo-apendix -Amount 5
+    > Add-IssuesToRepo -Owner OctoDemo -Repo testproject-repo-apendix -Amount 5
     .....
 
 9. ADD ISSUES OF A DIFFERENT REPO
@@ -182,8 +182,8 @@ FULL DEMO FLOW
     It may be useful to add issues from a different repo to the demo project.
     Use Add-ItemsToProjectFromARepo to add issues from a different repo to the demo project.
 
-    > $pn = Get-ProjectNumber -Name testproject -Owner Solidifydemo
-    > Add-ItemsToProjectFromARepo -Owner solidifydemo -ProjectNumber $pn -Repo testproject-repo-apendix
+    > $pn = Get-ProjectNumber -Name testproject -Owner Octodemo
+    > Add-ItemsToProjectFromARepo -Owner octodemo -ProjectNumber $pn -Repo testproject-repo-apendix
     .....
 
 10. SHUFFLE STATUS VALUE ON ISSUES
@@ -191,7 +191,7 @@ FULL DEMO FLOW
     Once added the issues to the project the Status field is not set.
     Use the Update-FieldValueWithSingleSelect command to set the status field to a random value.
 
-    > Update-FieldValueWithSingleSelect -Owner Solidifydemo -ProjectNumber 116 -FieldName Status
+    > Update-FieldValueWithSingleSelect -Owner Octodemo -ProjectNumber 116 -FieldName Status
     ...............
 
     You can use this command to SHUFFLE values of any other SINGLE SELECT field.
@@ -202,7 +202,7 @@ FULL DEMO FLOW
     Use Add-FieldSingleSelectToProject to add the Priority field to the project.
     Use Update-FieldValueWithSingleSelect to set a random value to the field.
 
-    > Add-FieldSingleSelectToProject -Owner SolidifyDemo -ProjectNumber 116 -FieldName "Priority" -Options "🔥Critical,🥵High,😊Normal,🥶Low"
+    > Add-FieldSingleSelectToProject -Owner OctoDemo -ProjectNumber 116 -FieldName "Priority" -Options "🔥Critical,🥵High,😊Normal,🥶Low"
     Add Priority ot project 116
 
     > Update-FieldValueWithSingleSelect -ProjectNumber 116  -FieldName Priority
@@ -210,7 +210,7 @@ FULL DEMO FLOW
 
     Or directly use Add-PriorityFieldToProject to add the field and set a random value.
 
-    > Add-PriorityFieldToProject -ProjectNumber 128 -owner solidifydemo
+    > Add-PriorityFieldToProject -ProjectNumber 128 -owner octodemo
 
 12. ADD OTHER SINGLE SELECT FIELDS LIKE SEVERITY
 
@@ -231,7 +231,7 @@ FULL DEMO FLOW
     Use Add-FieldNumber to add a field to the project and use Update-FieldValueWithNumber to add a random value the items in the project.
     Or use Add-TimeTrackerFieldToProject to it TimeTracker directly with -update flag to add random values to the items.
 
-    > Add-TimeTrackerFieldToProject -owner solidifydemo -ProjectNumber 116 -Update
+    > Add-TimeTrackerFieldToProject -owner octodemo -ProjectNumber 116 -Update
     Created field
     .....................
 
@@ -239,10 +239,10 @@ FULL DEMO FLOW
 
     Once done, with the philosophy of create, use, destroy, you should remove the demo.
 
-    > Remove-ProjectDemo -name testproject -Owner solidifydemo
-    Removed project [91] in [solidifydemo]
-    Deleted repo [SolidifyDemo/testproject-repo-back]
-    Deleted repo [SolidifyDemo/testproject-repo-front]
+    > Remove-ProjectDemo -name testproject -Owner octodemo
+    Removed project [91] in [octodemo]
+    Deleted repo [OctoDemo/testproject-repo-back]
+    Deleted repo [OctoDemo/testproject-repo-front]
 
 15. FIND PROJECTDEMO
 
@@ -253,14 +253,14 @@ FULL DEMO FLOW
     Name  : testproject2
     User  : raulgeu
     Title : testproject2
-    Owner : SolidifyDemo
-    Url   : https://github.com/orgs/SolidifyDemo/projects/114
+    Owner : OctoDemo
+    Url   : https://github.com/orgs/OctoDemo/projects/114
 
     Name  : testproject
     User  : rulasg
     Title : testproject
-    Owner : SolidifyDemo
-    Url   : https://github.com/orgs/SolidifyDemo/projects/113
+    Owner : OctoDemo
+    Url   : https://github.com/orgs/OctoDemo/projects/113
 
     Filter by user to find yours
 
@@ -269,12 +269,12 @@ FULL DEMO FLOW
     Name  : testproject
     User  : rulasg
     Title : testproject
-    Owner : SolidifyDemo
-    Url   : https://github.com/orgs/SolidifyDemo/projects/113
+    Owner : OctoDemo
+    Url   : https://github.com/orgs/OctoDemo/projects/113
 
     Pipe the output of Find-ProjectDemo to Remove-ProjectDemo to remove the project
 
     > find-projectdemo -user rulasg | Remove-ProjectDemo
-    Removed project [113] in [SolidifyDemo]
-    Deleted repo [SolidifyDemo/testproject-repo-back]
-    Deleted repo [SolidifyDemo/testproject-repo-front]
+    Removed project [113] in [OctoDemo]
+    Deleted repo [OctoDemo/testproject-repo-back]
+    Deleted repo [OctoDemo/testproject-repo-front]

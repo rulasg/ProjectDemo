@@ -2,7 +2,7 @@
 function ProjectDemoTest_updateIssueTimeTracking {
     Assert-SkipTest
     
-    $projectNumber = 164 ; $fieldName ="TimeTracker" ; $owner = "solidifydemo"
+    $projectNumber = 164 ; $fieldName ="TimeTracker" ; $owner = "octodemo"
 
     $items = Get-ProjectItems -ProjectNumber $ProjectNumber -Owner $Owner
 
