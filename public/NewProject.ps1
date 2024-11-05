@@ -3,7 +3,8 @@ function New-Project{
     param(
         [Parameter(Mandatory)] [string]$Title,
         [Parameter()] [string]$Owner,
-        [Parameter(Mandatory)] [string]$Description
+        [Parameter(Mandatory)] [string]$Description,
+        [Parameter()] [ValidateSet('PRIVATE', 'PUBLIC')][string]$Visibility = 'PRIVATE'
     )
 
     $command = 'gh project create --owner {owner} --title {title} --format json'
@@ -26,7 +27,7 @@ function New-Project{
 
     $command | Write-Verbose
     
-    $comand = 'gh project edit {projectnumber} --owner {owner} --visibility PUBLIC --readme "{readme}" --description "{description}"'
+    $comand = 'gh project edit {projectnumber} --owner {owner} --visibility $Visibility --readme "{readme}" --description "{description}"'
     $comand = $comand -replace '{projectnumber}',$number
     $comand = $comand -replace '{owner}',$Owner
     $comand = $comand -replace '{readme}',"README Demostrate how to use projects"

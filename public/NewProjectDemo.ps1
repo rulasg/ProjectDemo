@@ -2,7 +2,8 @@ function New-ProjectDemo{
     [CmdletBinding(SupportsShouldProcess)]
     param(
         [Parameter()] [string]$Name,
-        [Parameter()] [string]$Owner
+        [Parameter()] [string]$Owner,
+        [Parameter()] [string]$Visibility = "PRIVATE"
     )
 
     $user = Get-User
@@ -21,14 +22,14 @@ function New-ProjectDemo{
     }
 
     # Create Project
-    $url = New-Project -Title $demoEnv.Name -Owner $demoEnv.Owner -Description $demoEnv.ProjectDescriptionWithOwner
+    $url = New-Project -Title $demoEnv.Name -Owner $demoEnv.Owner -Description $demoEnv.ProjectDescriptionWithOwner -Visibility $Visibility
     $url
 
     # Create repos
-    $repoUrl = New-RepoDemo -Repo $demoEnv.RepoFront -Name $demoEnv.Name -Owner $demoEnv.Owner
+    $repoUrl = New-RepoDemo -Repo $demoEnv.RepoFront -Name $demoEnv.Name -Owner $demoEnv.Owner -Visibility $Visibility
     $repoUrl
 
-    $repoUrl = New-RepoDemo -Repo $demoEnv.RepoBack -Name $demoEnv.Name -Owner $demoEnv.Owner
+    $repoUrl = New-RepoDemo -Repo $demoEnv.RepoBack -Name $demoEnv.Name -Owner $demoEnv.Owner -Visibility $Visibility
     $repoUrl
 
     # Add issues to repos

@@ -3,7 +3,8 @@ function New-RepoDemo{
     param(
         [Parameter(ValueFromPipelineByPropertyName)][string]$Name,
         [Parameter(ValueFromPipelineByPropertyName)][string]$Owner,
-        [Parameter(Mandatory)][string]$Repo
+        [Parameter(Mandatory)][string]$Repo,
+        [Parameter()][ValidateSet("PUBLIC", "PRIVATE", "INTERNAL")][string]$Visibility = "PRIVATE"
     )
 
     process {
@@ -11,10 +12,17 @@ function New-RepoDemo{
         $env = Get-Environment -Name $Name -Owner $Owner
         $repoWithOwner = "{0}/{1}" -f $env.Owner,$Repo
 
-        "Creating repo [$repoWithOwner] with topic [$RepoTopic]" | Write-Verbose
+        switch ($Visibility) {
+            "PUBLIC" { $visibilityFlag = "--public" }
+            "PRIVATE" { $visibilityFlag = "--private" }
+            "INTERNAL" { $visibilityFlag = "--internal" }
+        }
 
-        $commad = 'gh repo create {repowithowner} --add-readme --public --description "Repo part of Project Demo"'
+        $commad = 'gh repo create {repowithowner} --add-readme {visibilityFlag} --description "Repo part of Project Demo"'
+        $commad = $commad -replace "{visibilityFlag}", $visibilityFlag
         $commad = $commad -replace "{repowithowner}",$repoWithOwner
+
+        "Creating repo [$repoWithOwner] with topic [$RepoTopic]" | Write-Verbose
 
         $commad | Write-Verbose
 
