@@ -63,6 +63,12 @@ function Get-EnvironmentName{
         [Parameter()] [string]$Name
     )
 
+    # Check if environment variable PROJECTDEMO_NAME is set
+    $envName = $env:PROJECTDEMO_NAME
+    if (-not [string]::IsNullOrWhiteSpace($envName)) {
+        $Name = $envName
+    }
+
     #check if name is null or whitespace
     if([string]::IsNullOrWhiteSpace($Name)){
         $Name = $DEFAULT_NAME
@@ -76,6 +82,12 @@ function Get-EnvironmentOwner{
     param(
         [Parameter()] [string]$Owner
     )
+
+    # Check if environment variable PROJECTDEMO_OWNER is set
+    $envOwner = $env:PROJECTDEMO_OWNER
+    if (-not [string]::IsNullOrWhiteSpace($envOwner)) {
+        $Owner = $envOwner
+    }
 
     # Default owner 
     if([string]::IsNullOrWhiteSpace($Owner)){
