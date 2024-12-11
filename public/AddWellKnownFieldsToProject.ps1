@@ -50,7 +50,7 @@ function Add-SizeFieldToProject{
 
     $owner = Get-EnvironmentOwner -Owner $Owner
 
-    $fieldName = "Severity"
+    $fieldName = "Size"
     $options= "S, M, L, XL" 
 
     Add-FieldSingleSelectToProject -ProjectNumber $ProjectNumber -Owner $Owner -FieldName $fieldName -Options $options
